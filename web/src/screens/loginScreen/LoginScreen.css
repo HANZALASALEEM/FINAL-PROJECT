@@ -1,0 +1,16 @@
+.body {
+	width: 100vw;
+	height: 100vh;
+	background-color: aquamarine;
+	display: flex;
+	flex-direction: row;
+}
+.leftContainer {
+	width: 20%;
+
+	background-color: bisque;
+}
+.rightContainer {
+	width: 80%;
+	background-color: blueviolet;
+}
