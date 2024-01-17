@@ -1,16 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 .body {
 	width: 100vw;
 	height: 100vh;
-	background-color: aquamarine;
+	background-color: #ffffff;
 	display: flex;
 	flex-direction: row;
 }
 .leftContainer {
-	width: 20%;
+	width: 50%;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.suffahLogo {
+	width: 35vw;
+	height: 70vh;
+	transition: transform 3s; /* Add a transition for a smoother effect */
+}
 
-	background-color: bisque;
+.suffahLogo:hover {
+	transform: rotateX(360deg); /* Rotate 360 degrees on the X-axis on hover */
 }
 .rightContainer {
-	width: 80%;
-	background-color: blueviolet;
+	width: 50%;
+	/* background-color: blueviolet; */
+}
+.wellcomeHeading {
+	font-family: "Avera Libre";
+	padding-left: 50px;
+	padding-top: 150px;
+	color: #3a62d7;
+	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+	transition: transform 0.3s ease-in-out; /* Add a transition for a smoother effect */
+}
+
+.wellcomeHeading:hover {
+	animation: shake 0.5s ease-in-out; /* Apply the shake animation on hover */
+	cursor: pointer;
+}
+
+@keyframes shake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	25%,
+	75% {
+		transform: translateX(-5px);
+	}
+	50% {
+		transform: translateX(5px);
+	}
+}
+.nameHeading {
+	font-family: "Avera Libre";
+	padding-left: 50px;
+	color: #3a62d7;
+	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+}
+.formContainer {
+	padding-left: 50px;
+}
+.lableAndInputContainer {
+	/* flex-direction: row;
+	display: flex; */
+	/* height: 60px; */
+	align-items: center;
+	/* background-color: antiquewhite; */
+}
+.lable {
+	font-size: 20px;
+	font-family: "Avera Libre";
+	padding-top: 5px;
+	font-weight: 700;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.textInput {
+	width: 475px;
+	height: 40px;
+	border-radius: 30px;
+	border-width: 0.1px;
+	border-color: rgb(162, 162, 162);
+	padding: 15px;
+	margin-left: 10px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.loginButton {
+	width: 475px;
+	height: 40px;
+	border-radius: 30px;
+	border-width: 0.1px;
+	border-color: rgb(162, 162, 162);
+	background-color: #3a62d7;
+	box-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+	margin: 10px;
+	margin-top: 50px;
+	color: #ffffff;
 }
