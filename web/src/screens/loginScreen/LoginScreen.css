@@ -13,9 +13,9 @@
 	display: flex;
 }
 .suffahLogo {
-	width: 35vw;
-	height: 70vh;
-	transition: transform 3s; /* Add a transition for a smoother effect */
+	width: 400px;
+	height: 650px;
+	transition: transform 5s; /* Add a transition for a smoother effect */
 }
 
 .suffahLogo:hover {
@@ -85,6 +85,9 @@
 	margin-left: 10px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+.textInput:hover {
+	box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.5);
+}
 .loginButton {
 	width: 475px;
 	height: 40px;
@@ -96,4 +99,11 @@
 	margin: 10px;
 	margin-top: 50px;
 	color: #ffffff;
+}
+.loginButton:hover {
+	border-radius: 30px;
+	border-width: 0.1px;
+	border-color: rgb(162, 162, 162);
+	background-color: #3a62d7;
+	box-shadow: -2px -2px 6px rgba(58, 98, 215, 0.6);
 }

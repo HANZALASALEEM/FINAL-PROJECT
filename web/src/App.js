@@ -1,13 +1,14 @@
 import "./App.css";
-import NavBar from "./component/navBar/NavBar";
 import LoginScreen from "./screens/loginScreen/LoginScreen";
-
+import { Route, Routes } from "react-router-dom";
+import PageNavigator from "./screens/PageNavigator";
 function App() {
 	return (
 		<>
-			<div className="App">
-				<LoginScreen />
-			</div>
+			<Routes>
+				<Route path="/" element={<LoginScreen />} />
+				<Route path="/PageNavigator" element={<PageNavigator />} />
+			</Routes>
 		</>
 	);
 }

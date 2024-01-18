@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "./LoginScreen.css";
 import { db } from "../../firebase/firebase.config";
 import { getDocs, collection, query } from "firebase/firestore";
+import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginScreen() {
+	const [messageApi, contextHolder] = message.useMessage();
+	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -20,13 +24,12 @@ export default function LoginScreen() {
 				const adminData = doc.data();
 
 				// Step 3: Check if any document has the provided email and password
-				if (
-					adminData.email === "hanzala@suffah.edu.pk" ||
-					adminData.password === password
-					// >>>>>>>>>>>>>>>>>>>>>ERROR hy yahan<<<<<<<<<<<<<<<<<<<<<
-				) {
+				if (adminData.email === email && adminData.password === password) {
 					// If a match is found, allow the user to proceed to the next screen
+
 					console.log("match found"); // Function to handle user authentication
+					messageApi.success("Wait, Ant Design!");
+					navigate("/PageNavigator");
 				} else {
 					// If no match is found
 					console.log("Invalid email or password");
@@ -76,7 +79,13 @@ export default function LoginScreen() {
 							/>
 						</div>
 						{/* Login Button */}
-						<button type="button" className="loginButton" onClick={login}>
+						<button
+							type="button"
+							className="loginButton"
+							onClick={() => {
+								login(email, password);
+							}}
+						>
 							Login
 						</button>
 					</div>

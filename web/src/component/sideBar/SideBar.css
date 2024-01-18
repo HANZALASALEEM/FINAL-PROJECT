@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+.sideBarContainer {
+	background-color: #e7e7e7;
+	height: 100vh;
+	width: 350px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.logoAndTitle {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.logo {
+	width: 50px;
+	height: 60px;
+}
+.title {
+	font-size: 20px;
+	margin-top: 15px;
+	color: #3a62d7;
+	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+	font-weight: 500;
+	font-family: "Avera Libre";
+}
+.navbarContainer {
+	background-color: antiquewhite;
+	width: 90%;
+	height: 80%;
+	align-self: center;
+	margin-top: 35px;
+	/* margin: 15px; */
+	justify-content: center;
+	display: flex;
+}
+.navLink {
+	width: 70%;
+	height: 40px;
+	background-color: #ffffff;
+	border-radius: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
