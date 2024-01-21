@@ -4,8 +4,10 @@
 	height: 50px;
 	width: 100vw;
 	display: flex;
-	justify-content: center;
-	flex-direction: column;
+	justify-content: space-between;
+	padding-left: 30px;
+	padding-right: 30px;
+	align-items: center;
 }
 .logoAndTitle {
 	display: flex;
@@ -25,18 +27,8 @@
 	font-weight: 500;
 	font-family: "Avera Libre";
 }
-.navbarContainer {
-	background-color: antiquewhite;
-	width: 90%;
-	height: 80%;
-	align-self: center;
-	margin-top: 35px;
-	/* margin: 15px; */
-	justify-content: center;
-	display: flex;
-}
 .navLink {
-	width: 70%;
+	width: 95%;
 	height: 40px;
 	background-color: #ffffff;
 	border-radius: 20px;
@@ -44,4 +36,27 @@
 	align-items: center;
 	display: flex;
 	justify-content: center;
+	margin-top: 10px;
+}
+.navLink:hover {
+	background-color: #3a62d7;
+	box-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+}
+.navLink.active {
+	background-color: #3a62d7;
+	box-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+	color: #ffffff;
+}
+.link {
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	text-decoration: none;
+	color: #3a62d7;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.link:hover {
+	color: #ffffff;
 }

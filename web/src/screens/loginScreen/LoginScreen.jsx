@@ -29,7 +29,8 @@ export default function LoginScreen() {
 
 					console.log("match found"); // Function to handle user authentication
 					messageApi.success("Wait, Ant Design!");
-					navigate("/PageNavigator");
+					navigate("StudentList");
+					window.location.reload();
 				} else {
 					// If no match is found
 					console.log("Invalid email or password");

@@ -1,3 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 .body {
-	width: 80vw;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+}
+.pageTitleContainer {
+	width: 100%;
+	height: 60px;
+	background-color: rgb(242, 242, 255);
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.pageTitle {
+	font-family: "Avera Libre";
+	color: #3a62d7;
+	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+}
+.classPickerContainer {
+	width: 100%;
+	height: 50px;
+	background-color: aquamarine; /* remove it later*/
+	align-items: center;
+	display: flex;
+	justify-content: end;
+	padding-right: 50px;
+}
+.classTitle {
+	font-family: "Avera Libre";
+	color: #000000;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	margin-top: 17px;
+	margin-right: 5px;
+}
+.tabbarOutterContainer {
+	width: 100%;
+	height: 50px;
+	background-color: rgb(76, 119, 104); /* remove it later*/
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.tabbarInnerContainer {
+	width: 95%;
+	height: 40px;
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	display: flex;
+	flex-direction: row;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.tabName {
+	font-family: "Avera Libre";
+	color: #000000;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	padding-top: 17px;
+	width: 25%;
+	background-color: antiquewhite; /* remove it later*/
+	margin-left: 3px; /* remove it later*/
+	display: flex;
+	align-self: center;
+}
+.studentDetailOutterContainer {
+	width: 100%;
+	background-color: antiquewhite; /* remove it later*/
+	height: 70%;
+	display: flex;
+	justify-content: center;
+}
+.studentDetailInnerContainer {
+	width: 95%;
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	padding-top: 20px;
+	padding-bottom: 20px;
+	max-height: 100%;
+	overflow: auto; /* Add overflow property to enable scrolling */
+}
+.studentDetailContainer {
+	width: 100%;
+	height: 40px;
+	background-color: aqua; /* remove it later*/
+	display: flex;
+	flex-direction: row;
+	padding-left: 50px;
+	padding-right: 50px;
+	border-width: 0px;
+}
+.addStudentButton {
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	background-color: #3a62d7;
+	border-width: 0px;
+	border-radius: 35px;
+	bottom: 10px;
+	right: 25px;
+}
+.icon {
+	width: 30px;
+	height: 30px;
 }

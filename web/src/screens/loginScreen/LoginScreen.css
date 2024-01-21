@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 .body {
 	width: 100vw;
-	height: 100vh;
+	height: 90vh;
 	background-color: #ffffff;
 	display: flex;
 	flex-direction: row;
@@ -19,8 +19,24 @@
 }
 
 .suffahLogo:hover {
-	transform: rotateX(360deg); /* Rotate 360 degrees on the X-axis on hover */
+	/* transform: rotateY(360deg); Rotate 360 degrees on the X-axis on hover */
+	animation: circleRotate 10s;
 }
+
+@keyframes circleRotate {
+	0%,
+	100% {
+		transform: rotateY(0deg);
+	}
+	25%,
+	75% {
+		transform: rotateY(360deg);
+	}
+	50% {
+		transform: rotateY(180deg);
+	}
+}
+
 .rightContainer {
 	width: 50%;
 	/* background-color: blueviolet; */
