@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
-.inputBodyContainer {
-	width: 400px;
+.hifzInputMarksBodyContainer {
+	width: 200px;
 	height: 70px;
 }
-.inputTitle {
+.hifzInputMarksDate {
 	font-family: "Avera Libre";
 	color: #000000;
 	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 }
-.inputTitleAndInputContainer {
-	height: 35px;
+.hifzInputMarksTitleAndInputContainer {
+	height: 40px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -17,18 +17,8 @@
 	background-color: white;
 	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 	border-radius: 20px;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-.inputContainer {
-	width: 370px;
-	border-width: 0px;
-}
-.inputButton {
-	border-width: 0px;
-	background-color: white;
-}
-.inputIcon {
-	width: 20px;
-	height: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	justify-content: space-between;
+	padding-top: 15px;
 }

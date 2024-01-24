@@ -13,18 +13,6 @@ function SideBar() {
 	return (
 		<>
 			<div className="sideBarContainer">
-				{/* <div className="logoAndTitle">
-				<img
-					src={require("../../assets/images/suffah-logo.png")}
-					className="logo"
-				/>
-				<p className="title">SUFFAH ISLAMIC SCHOOL</p>
-			</div>
-			<div className="navbarContainer">
-				<div className="navLink">
-					<Link to="./StudentList">Student</Link>
-				</div>
-			</div> */}
 				{/* Left Container of Navbar  */}
 				<div>
 					<Button type="primary" onClick={showDrawer}>
@@ -55,15 +43,66 @@ function SideBar() {
 								Employee
 							</NavLink>
 						</div>
-
-						<p>Some contents...</p>
-						<p>Some contents...</p>
+						<div className="navLink">
+							<NavLink
+								to="/AdmissionList"
+								className="link"
+								activeClassName="active"
+							>
+								Admission
+							</NavLink>
+						</div>
+						<div className="navLink">
+							<NavLink
+								to="/FeeSubmission"
+								className="link"
+								activeClassName="active"
+							>
+								Fee Submission
+							</NavLink>
+						</div>
+						<div className="navLink">
+							<NavLink
+								to="/TimeTable"
+								className="link"
+								activeClassName="active"
+							>
+								Time Table
+							</NavLink>
+						</div>
+						<div className="navLink">
+							<NavLink
+								to="/NotificationList"
+								className="link"
+								activeClassName="active"
+							>
+								Notification
+							</NavLink>
+						</div>
+						<div className="navLink">
+							<NavLink
+								to="/EventsList"
+								className="link"
+								activeClassName="active"
+							>
+								Events
+							</NavLink>
+						</div>
+						<div className="navLink">
+							<NavLink
+								to="/ExpensesList"
+								className="link"
+								activeClassName="active"
+							>
+								Expenses
+							</NavLink>
+						</div>
 					</Drawer>
 				</div>
 				{/* Middle Container of Navbar */}
 				<div className="logoAndTitle">
 					<img
-						src={require("../../assets/images/suffah-logo.png")}
+						src={require("../../assets/images/suffah-mono.png")}
 						className="logo"
 					/>
 					<p className="title">SUFFAH ISLAMIC SCHOOL</p>

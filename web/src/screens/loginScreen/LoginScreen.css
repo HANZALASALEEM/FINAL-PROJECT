@@ -1,24 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
-.body {
+.loginScreenBody {
 	width: 100vw;
 	height: 90vh;
 	background-color: #ffffff;
 	display: flex;
 	flex-direction: row;
 }
-.leftContainer {
+.loginScreenLeftContainer {
 	width: 50%;
 	align-items: center;
 	justify-content: center;
 	display: flex;
 }
-.suffahLogo {
+.loginScreenSuffahLogo {
 	width: 400px;
 	height: 650px;
 	transition: transform 5s; /* Add a transition for a smoother effect */
 }
 
-.suffahLogo:hover {
+.loginScreenSuffahLogo:hover {
 	/* transform: rotateY(360deg); Rotate 360 degrees on the X-axis on hover */
 	animation: circleRotate 10s;
 }
@@ -37,11 +37,11 @@
 	}
 }
 
-.rightContainer {
+.loginScreenRightContainer {
 	width: 50%;
 	/* background-color: blueviolet; */
 }
-.wellcomeHeading {
+.loginScreenWellcomeHeading {
 	font-family: "Avera Libre";
 	padding-left: 50px;
 	padding-top: 150px;
@@ -50,7 +50,7 @@
 	transition: transform 0.3s ease-in-out; /* Add a transition for a smoother effect */
 }
 
-.wellcomeHeading:hover {
+.loginScreenWellcomeHeading:hover {
 	animation: shake 0.5s ease-in-out; /* Apply the shake animation on hover */
 	cursor: pointer;
 }
@@ -68,30 +68,30 @@
 		transform: translateX(5px);
 	}
 }
-.nameHeading {
+.loginScreenNameHeading {
 	font-family: "Avera Libre";
 	padding-left: 50px;
 	color: #3a62d7;
 	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
 }
-.formContainer {
+.loginScreenFormContainer {
 	padding-left: 50px;
 }
-.lableAndInputContainer {
+.loginScreenLableAndInputContainer {
 	/* flex-direction: row;
 	display: flex; */
 	/* height: 60px; */
 	align-items: center;
 	/* background-color: antiquewhite; */
 }
-.lable {
+.loginScreenLable {
 	font-size: 20px;
 	font-family: "Avera Libre";
 	padding-top: 5px;
 	font-weight: 700;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-.textInput {
+.loginScreenTextInput {
 	width: 475px;
 	height: 40px;
 	border-radius: 30px;
@@ -101,10 +101,10 @@
 	margin-left: 10px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-.textInput:hover {
+.loginScreenTextInput:hover {
 	box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.5);
 }
-.loginButton {
+.loginScreenLoginButton {
 	width: 475px;
 	height: 40px;
 	border-radius: 30px;
@@ -116,10 +116,6 @@
 	margin-top: 50px;
 	color: #ffffff;
 }
-.loginButton:hover {
-	border-radius: 30px;
-	border-width: 0.1px;
-	border-color: rgb(162, 162, 162);
-	background-color: #3a62d7;
+.loginScreenLoginButton:hover {
 	box-shadow: -2px -2px 6px rgba(58, 98, 215, 0.6);
 }

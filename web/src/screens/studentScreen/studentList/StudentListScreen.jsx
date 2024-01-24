@@ -34,15 +34,20 @@ export default function StudentListScreen() {
 		// Navigate to another page and pass the data as props
 		navigate("/StudentDetail", { state: { studentData: data } });
 	};
+
+	const handleNewStudentButton = () => {
+		// Navigate to another page and pass the data as props
+		navigate("/NewStudent");
+	};
 	return (
-		<div className="body">
+		<div className="studentListBody">
 			{/* Page Title Name */}
-			<div className="pageTitleContainer">
-				<h2 className="pageTitle">Students List</h2>
+			<div className="studentListPageTitleContainer">
+				<h2 className="studentListPageTitle">Students List</h2>
 			</div>
 			{/* Class Picker Container */}
-			<div className="classPickerContainer">
-				<p className="classTitle">CLASS: </p>
+			<div className="studentListClassPickerContainer">
+				<p className="studentListClassTitle">CLASS: </p>
 				<div>
 					<Space wrap>
 						<Select
@@ -106,33 +111,39 @@ export default function StudentListScreen() {
 				</div>
 			</div>
 			{/* Tab Bar */}
-			<div className="tabbarOutterContainer">
-				<div className="tabbarInnerContainer">
-					<p className="tabName">NAME</p>
-					<p className="tabName">FATHER NAME</p>
-					<p className="tabName">NUMBER</p>
-					<p className="tabName">ADDRESS</p>
+			<div className="studentListTabbarOutterContainer">
+				<div className="studentListTabbarInnerContainer">
+					<p className="studentListTabName">NAME</p>
+					<p className="studentListTabName">FATHER NAME</p>
+					<p className="studentListTabName">NUMBER</p>
+					<p className="studentListTabName">ADDRESS</p>
 				</div>
 			</div>
 			{/* PlayGround of Student Details */}
-			<div className="studentDetailOutterContainer">
-				<div className="studentDetailInnerContainer">
+			<div className="studentListStudentDetailOutterContainer">
+				<div className="studentListStudentDetailInnerContainer">
 					{studentData.map((data) => (
 						<button
-							className="studentDetailContainer"
+							className="studentListStudentDetailContainer"
 							key={data.id}
 							onClick={() => handleStudentDetailButton(data)}
 						>
-							<p className="tabName">{data.name}</p>
-							<p className="tabName">{data.fatherName}</p>
-							<p className="tabName">{data.number}</p>
-							<p className="tabName">{data.address}</p>
+							<p className="studentListTabName">{data.name}</p>
+							<p className="studentListTabName">{data.fatherName}</p>
+							<p className="studentListTabName">{data.phoneNumber1}</p>
+							<p className="studentListTabName">{data.address}</p>
 						</button>
 					))}
 				</div>
 			</div>
-			<button className="addStudentButton">
-				<img src={require("../../../assets/icons/add.png")} className="icon" />
+			<button
+				className="studentListAddStudentButton"
+				onClick={() => handleNewStudentButton()}
+			>
+				<img
+					src={require("../../../assets/icons/add.png")}
+					className="studentListIcon"
+				/>
 			</button>
 		</div>
 	);

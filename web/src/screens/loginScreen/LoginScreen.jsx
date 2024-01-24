@@ -28,7 +28,7 @@ export default function LoginScreen() {
 					// If a match is found, allow the user to proceed to the next screen
 
 					console.log("match found"); // Function to handle user authentication
-					messageApi.success("Wait, Ant Design!");
+					messageApi.success("Wait, Login Successfully!");
 					navigate("StudentList");
 					window.location.reload();
 				} else {
@@ -42,23 +42,23 @@ export default function LoginScreen() {
 	};
 	return (
 		<>
-			<div className="body">
-				<div className="leftContainer">
+			<div className="loginScreenBody">
+				<div className="loginScreenLeftContainer">
 					<img
-						className="suffahLogo"
+						className="loginScreenSuffahLogo"
 						src={require("../../assets/images/suffah-logo.png")}
 						alt="Suffah Logo"
 					/>
 				</div>
-				<div className="rightContainer">
-					<h1 className="wellcomeHeading">Wellcome!</h1>
-					<h1 className="nameHeading">Suffah Model School</h1>
-					<div className="formContainer">
+				<div className="loginScreenLoginScreenRightContainer">
+					<h1 className="loginScreenWellcomeHeading">Wellcome!</h1>
+					<h1 className="loginScreenNameHeading">Suffah Model School</h1>
+					<div className="loginScreenFormContainer">
 						{/* Email Input  */}
-						<div className="lableAndInputContainer">
-							<p className="lable">Email: </p>
+						<div className="loginScreenLableAndInputContainer">
+							<p className="loginScreenLable">Email: </p>
 							<input
-								className="textInput"
+								className="loginScreenTextInput"
 								placeholder="Aministrative Email"
 								value={email}
 								onChange={(text) => {
@@ -67,10 +67,10 @@ export default function LoginScreen() {
 							/>
 						</div>
 						{/* Password Input */}
-						<div className="lableAndInputContainer mt-2">
-							<p className="lable">Password: </p>
+						<div className="loginScreenLableAndInputContainer mt-2">
+							<p className="loginScreenLable">Password: </p>
 							<input
-								className="textInput"
+								className="loginScreenTextInput"
 								placeholder="Password"
 								type="password"
 								value={password}
@@ -80,9 +80,10 @@ export default function LoginScreen() {
 							/>
 						</div>
 						{/* Login Button */}
+						{contextHolder}
 						<button
 							type="button"
-							className="loginButton"
+							className="loginScreenLoginButton"
 							onClick={() => {
 								login(email, password);
 							}}

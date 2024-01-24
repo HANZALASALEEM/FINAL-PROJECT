@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 .sideBarContainer {
-	background-color: #e7e7e7;
 	height: 50px;
 	width: 100vw;
 	display: flex;
@@ -16,12 +15,14 @@
 	justify-content: center;
 }
 .logo {
-	width: 50px;
+	width: 100px;
 	height: 60px;
+	margin-top: -5px;
+	margin-right: -10px;
 }
 .title {
 	font-size: 20px;
-	margin-top: 15px;
+	margin-top: 20px;
 	color: #3a62d7;
 	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
 	font-weight: 500;
