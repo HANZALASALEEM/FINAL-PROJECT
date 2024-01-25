@@ -105,6 +105,10 @@ export default function StudentListScreen() {
 									value: "10",
 									label: "10",
 								},
+								{
+									value: "inactive",
+									label: "inactive",
+								},
 							]}
 						/>
 					</Space>

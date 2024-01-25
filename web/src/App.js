@@ -13,6 +13,11 @@ import StudentDetail from "./screens/studentScreen/studentDetail/StudentDetailSc
 import EmployeeListScreen from "./screens/employeeScreen/employeeList/EmployeeListScreen";
 import NewStudentScreen from "./screens/studentScreen/newStudentScreen/NewStudentScreen";
 import EmployeeDetailScreen from "./screens/employeeScreen/employeeDetail/EmployeeDetailScreen";
+import NewEmployeeScreen from "./screens/employeeScreen/newEmployee/NewEmployeeScreen";
+import AdmissionListScreen from "./screens/admissionScreen/admissionList/AdmissionListScreen";
+import NewAdmissionScreen from "./screens/admissionScreen/newAdmission/NewAdmissionScreen";
+import FeeSubmissionListScreen from "./screens/feeSubmission/feeSubmissionList/FeeSubmissionListScreen";
+import NewFeeSubmissionScreen from "./screens/feeSubmission/newFeeSubmission/NewFeeSubmissionScreen";
 function App() {
 	return (
 		<>
@@ -24,6 +29,19 @@ function App() {
 				<Route exact path="NewStudent" element={<NewStudentScreen />} />
 				<Route exact path="EmployeeList" element={<EmployeeListScreen />} />
 				<Route exact path="EmployeeDetail" element={<EmployeeDetailScreen />} />
+				<Route exact path="NewEmployee" element={<NewEmployeeScreen />} />
+				<Route exact path="AdmissionList" element={<AdmissionListScreen />} />
+				<Route exact path="NewAdmission" element={<NewAdmissionScreen />} />
+				<Route
+					exact
+					path="FeeSubmissionList"
+					element={<FeeSubmissionListScreen />}
+				/>
+				<Route
+					exact
+					path="NewFeeSubmission"
+					element={<NewFeeSubmissionScreen />}
+				/>
 			</Routes>
 		</>
 	);

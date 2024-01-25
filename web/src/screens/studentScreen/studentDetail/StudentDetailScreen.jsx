@@ -57,7 +57,10 @@ function StudentDetailScreen() {
 		setAddress(studentData.address);
 
 		const getHifzReport = async () => {
-			const studentDocRef = doc(collection(db, "Student"), studentData.rollNo);
+			const studentDocRef = doc(
+				collection(db, "Student"),
+				studentData.studentCNIC
+			);
 			const hifzReportQuery = query(
 				collection(studentDocRef, "hifzReport"),
 				orderBy("timestamp", "desc"),

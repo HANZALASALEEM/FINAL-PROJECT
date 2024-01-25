@@ -121,66 +121,196 @@ function EmployeeDetailScreen() {
 		});
 	};
 
+	const editClassIncharge = async () => {
+		const docRef = doc(db, "Employee", employeeData.id);
+		await updateDoc(docRef, {
+			classIncharge: classIncharge,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Class Incharge Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const editPreviousJob = async () => {
+		const docRef = doc(db, "Employee", employeeData.id);
+		await updateDoc(docRef, {
+			previousJob: previousJob,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Previous Job Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const editPreviousSalary = async () => {
+		const docRef = doc(db, "Employee", employeeData.id);
+		await updateDoc(docRef, {
+			previousSalary: previousSalary,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Previous Salary Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const editAddress = async () => {
+		const docRef = doc(db, "Employee", employeeData.id);
+		await updateDoc(docRef, {
+			address: address,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Address Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const editDesignation = async () => {
+		const docRef = doc(db, "Employee", employeeData.id);
+		await updateDoc(docRef, {
+			designation: designation,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Designation Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const editSalary = async () => {
+		const docRef = doc(db, "Employee", employeeData.id);
+		await updateDoc(docRef, {
+			salary: salary,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Salary Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const deleteButton = async () => {
+		try {
+			await deleteDoc(doc(db, "Student", employeeData.id));
+			messageApi.open({
+				type: "success",
+				content: "Student Deleted in Database",
+				duration: 10,
+			});
+
+			navigate(-1);
+		} catch (error) {
+			console.error("Error deleting student:", error);
+			messageApi.open({
+				type: "error",
+				content: "Check Your Internet Connection",
+				duration: 10,
+			});
+		}
+	};
+
 	return (
 		<div className="employeeDetailBody">
+			{contextHolder}
 			{/* Page Title Name */}
 			<div className="employeeDetailPageTitleContainer">
-				<h2 className="employeeDetailPageTitle">{employeeData.name}</h2>
+				<h2 className="employeeDetailPageTitle">{name}</h2>
 			</div>
 			{/* Playground Area */}
 			<div className="employeeDetailPlayground">
 				<div className="employeeDetailEmployeeInfo">
 					<div className="employeeDetailEmployeeInfoColoum">
-						<TextInput title={"EMPLOYEE NAME: "} value={employeeData.name} />
+						<TextInput
+							title={"EMPLOYEE NAME: "}
+							value={name}
+							onEdit={() => editName()}
+							changeText={(text) => setName(text)}
+						/>
 
 						<TextInput
 							title={"PREVIOUS JOB: "}
-							value={employeeData.completedClass}
+							value={previousJob}
+							onEdit={() => editPreviousJob()}
+							changeText={(text) => setPreviousJob(text)}
 						/>
 						<TextInput
 							title={"CURRENT DESIGNATION: "}
-							value={employeeData.completedClass}
+							value={designation}
+							onEdit={() => editDesignation()}
+							changeText={(text) => setDesignation(text)}
 						/>
 						<TextInput
 							title={"PHONE NUMBER 1: "}
-							value={employeeData.phoneNumber1}
+							value={phoneNumber1}
+							onEdit={() => editPhoneNumber1()}
+							changeText={(text) => setPhoneNumber1(text)}
 						/>
 					</div>
 					<div className="employeeDetailEmployeeInfoColoum">
 						<TextInput
 							title={"EMPLOYEE CNIC: "}
-							value={employeeData.studentCNIC}
+							value={employeeCNIC}
+							onEdit={() => editEmployeeCNIC()}
+							changeText={(text) => setEmployeeCNIC(text)}
 						/>
 						<TextInput
 							title={"PREVIOUS JOB SALARY: "}
-							value={employeeData.completedClass}
+							value={previousSalary}
+							onEdit={() => editPreviousSalary()}
+							changeText={(text) => setPreviousSalary(text)}
 						/>
 						<TextInput
 							title={"CURRENT SALARY: "}
-							value={employeeData.completedClass}
+							value={salary}
+							onEdit={() => editSalary()}
+							changeText={(text) => setSalary(text)}
 						/>
 						<TextInput
 							title={"PHONE NUMBER 2: "}
-							value={employeeData.phoneNumber2}
+							value={phoneNumber2}
+							onEdit={() => editPhoneNumber2()}
+							changeText={(text) => setPhoneNumber2(text)}
 						/>
 					</div>
 					<div className="employeeDetailEmployeeInfoColoum">
 						<TextInput
 							title={"FATHER NAME: "}
-							value={employeeData.fatherName}
+							value={fatherName}
+							onEdit={() => editFatherName()}
+							changeText={(text) => setFatherName(text)}
 						/>
 						<TextInput
 							title={"EDUCATION: "}
-							value={employeeData.fatherOccupation}
+							value={education}
+							onEdit={() => editEducation()}
+							changeText={(text) => setEducation(text)}
 						/>
 						<TextInput
 							title={"CLASS INCHARGE: "}
-							value={employeeData.motherEducation}
+							value={classIncharge}
+							onEdit={() => editClassIncharge()}
+							changeText={(text) => setClassIncharge(text)}
 						/>
-						<TextInput title={"ADDRESS: "} value={employeeData.address} />
+						<TextInput
+							title={"ADDRESS: "}
+							value={address}
+							onEdit={() => editAddress()}
+							changeText={(text) => setAddress(text)}
+						/>
 					</div>
 				</div>
 			</div>
+			{/* Delete Button */}
+			<button
+				className="employeeDetailDeleteButton"
+				onClick={() => deleteButton()}
+			>
+				Delete
+			</button>
 		</div>
 	);
 }

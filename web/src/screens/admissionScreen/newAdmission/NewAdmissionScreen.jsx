@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import TextInput from "../../../component/textInput/TextInput";
-import "./NewStudentScreen.css";
+import "./NewAdmissionScreen.css";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.config";
-import { message } from "antd";
-function NewStudentScreen() {
+import { message, Select, Space } from "antd";
+function NewAdmissionScreen() {
 	const [messageApi, contextHolder] = message.useMessage();
 	const [rollNo, setRollNo] = useState(null);
 	const [name, setName] = useState(null);
@@ -21,6 +21,7 @@ function NewStudentScreen() {
 	const [fatherIncome, setFatherIncome] = useState(null);
 	const [previousSchool, setPreviousSchool] = useState(null);
 	const [address, setAddress] = useState(null);
+	const [year, setYear] = useState(null);
 
 	const newStudentData = {
 		rollNo: rollNo,
@@ -40,36 +41,36 @@ function NewStudentScreen() {
 		address: address,
 	};
 
-	// const handleSaveButton = async () => {
-	// 	try {
-	// 		const studentCollectionRef = collection(db, "Student");
+	const newAdmissionData = {
+		name: name,
+		fatherName: fatherName,
+		phoneNumber1: phoneNumber1,
+		class: recentClass,
+		address: address,
+		year: year,
+	};
 
-	// 		// Add a new document to the "Student" collection with a specific rollNo
-	// 		const docRef = await addDoc(studentCollectionRef, newStudentData);
-
-	// 		console.log("Document added with ID: ", docRef.id);
-	// 		messageApi.open({
-	// 			type: "success",
-	// 			content: "New Student Added in Database",
-	// 			duration: 10,
-	// 		});
-	// 	} catch (error) {
-	// 		console.error("Error adding document: ", error);
-	// 	}
-	// };
+	const handleYearPicker = (value) => {
+		setYear(value);
+	};
 
 	const handleSaveButton = async () => {
 		try {
 			const studentCollectionRef = collection(db, "Student");
+			const admissionCollectionRef = collection(db, "Admission");
 
 			// Use setDoc to update or create a document with a specific rollNo
 			await setDoc(
 				doc(studentCollectionRef, newStudentData.studentCNIC),
 				newStudentData
 			);
+			await setDoc(
+				doc(admissionCollectionRef, newAdmissionData.phoneNumber1),
+				newAdmissionData
+			);
 
 			console.log(
-				"Document updated/added with rollNo: ",
+				"Document updated/added with CNIC: ",
 				newStudentData.studentCNIC
 			);
 			messageApi.open({
@@ -83,15 +84,60 @@ function NewStudentScreen() {
 	};
 
 	return (
-		<div className="newStudentBody">
+		<div className="newAdmissionBody">
 			{/* Page Title Name */}
-			<div className="newStudentPageTitleContainer">
-				<h2 className="newStudentPageTitle">ADD NEW STUDENT</h2>
+			<div className="newAdmissionPageTitleContainer">
+				<h2 className="newAdmissionPageTitle">ADD NEW ADMISSION</h2>
+			</div>
+			{/* Year Picker Container */}
+			<div className="admissionListClassPickerContainer">
+				<p className="admissionListClassTitle">YEAR: </p>
+				<div>
+					<Space wrap>
+						<Select
+							defaultValue="2024"
+							style={{
+								width: 120,
+							}}
+							onChange={handleYearPicker}
+							options={[
+								{
+									value: "2024",
+									label: "2024",
+								},
+								{
+									value: "2025",
+									label: "2025",
+								},
+								{
+									value: "2026",
+									label: "2026",
+								},
+								{
+									value: "2027",
+									label: "2027",
+								},
+								{
+									value: "2028",
+									label: "2028",
+								},
+								{
+									value: "2029",
+									label: "2029",
+								},
+								{
+									value: "2030",
+									label: "2030",
+								},
+							]}
+						/>
+					</Space>
+				</div>
 			</div>
 			{/* Playground Area */}
-			<div className="newStudentPlayground">
-				<div className="newStudentStudentInfo">
-					<div className="newStudentStudentInfoColoum">
+			<div className="newAdmissionPlayground">
+				<div className="newAdmissionAdmissionInfo">
+					<div className="newAdmissionAdmissionInfoColoum">
 						<TextInput
 							title={"STUDENT ROLL NO: "}
 							changeText={(text) => setRollNo(text)}
@@ -113,7 +159,7 @@ function NewStudentScreen() {
 							changeText={(text) => setPhoneNumber1(text)}
 						/>
 					</div>
-					<div className="newStudentStudentInfoColoum">
+					<div className="newAdmissionAdmissionInfoColoum">
 						<TextInput
 							title={"FATHER NAME: "}
 							changeText={(text) => setFatherName(text)}
@@ -136,7 +182,7 @@ function NewStudentScreen() {
 							changeText={(text) => setPhoneNumber2(text)}
 						/>
 					</div>
-					<div className="newStudentStudentInfoColoum">
+					<div className="newAdmissionAdmissionInfoColoum">
 						<TextInput
 							title={"FATHER CNIC: "}
 							changeText={(text) => setFatherCNIC(text)}
@@ -163,11 +209,11 @@ function NewStudentScreen() {
 			</div>
 			{/* Save Button */}
 			{contextHolder}
-			<button className="newStudentSaveButton" onClick={handleSaveButton}>
+			<button className="newAdmissionSaveButton" onClick={handleSaveButton}>
 				Save
 			</button>
 		</div>
 	);
 }
 
-export default NewStudentScreen;
+export default NewAdmissionScreen;
