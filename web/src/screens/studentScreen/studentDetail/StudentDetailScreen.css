@@ -54,6 +54,13 @@
 	padding-left: 30px;
 	padding-bottom: 30px;
 }
+.studentDetailHifzReportContainer {
+	display: flex;
+	flex-direction: row;
+	padding-left: 30px;
+	padding-right: 30px;
+	justify-content: space-between;
+}
 .studentDetailDeleteButton {
 	width: 30%;
 	height: 40px;

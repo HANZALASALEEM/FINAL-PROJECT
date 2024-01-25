@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextInput from "../../../component/textInput/TextInput";
 import "./NewStudentScreen.css";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.config";
 import { message } from "antd";
 function NewStudentScreen() {
@@ -40,21 +40,45 @@ function NewStudentScreen() {
 		address: address,
 	};
 
+	// const handleSaveButton = async () => {
+	// 	try {
+	// 		const studentCollectionRef = collection(db, "Student");
+
+	// 		// Add a new document to the "Student" collection with a specific rollNo
+	// 		const docRef = await addDoc(studentCollectionRef, newStudentData);
+
+	// 		console.log("Document added with ID: ", docRef.id);
+	// 		messageApi.open({
+	// 			type: "success",
+	// 			content: "New Student Added in Database",
+	// 			duration: 10,
+	// 		});
+	// 	} catch (error) {
+	// 		console.error("Error adding document: ", error);
+	// 	}
+	// };
+
 	const handleSaveButton = async () => {
 		try {
 			const studentCollectionRef = collection(db, "Student");
 
-			// Add a new document to the "Student" collection with a specific rollNo
-			const docRef = await addDoc(studentCollectionRef, newStudentData);
+			// Use setDoc to update or create a document with a specific rollNo
+			await setDoc(
+				doc(studentCollectionRef, newStudentData.rollNo),
+				newStudentData
+			);
 
-			console.log("Document added with ID: ", docRef.id);
+			console.log(
+				"Document updated/added with rollNo: ",
+				newStudentData.rollNo
+			);
 			messageApi.open({
 				type: "success",
-				content: "New Student Added in Database",
+				content: "Student Data Saved in Database",
 				duration: 10,
 			});
 		} catch (error) {
-			console.error("Error adding document: ", error);
+			console.error("Error saving document: ", error);
 		}
 	};
 

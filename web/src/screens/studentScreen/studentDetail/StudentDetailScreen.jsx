@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./StudentDetailScreen.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
 	collection,
 	query,
@@ -9,13 +9,18 @@ import {
 	doc,
 	updateDoc,
 	deleteDoc,
+	orderBy,
+	limit,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.config";
 import TextInput from "../../../component/textInput/TextInput";
 import HifzTextMarksInput from "../../../component/hifzTextMarksInput/HifzTextMarksInput";
+import { message } from "antd";
 function StudentDetailScreen() {
+	const navigate = useNavigate();
 	const { state } = useLocation();
 	const { studentData } = state;
+	const [messageApi, contextHolder] = message.useMessage();
 	const [rollNo, setRollNo] = useState(null);
 	const [name, setName] = useState(null);
 	const [fatherName, setFatherName] = useState(null);
@@ -31,6 +36,8 @@ function StudentDetailScreen() {
 	const [fatherIncome, setFatherIncome] = useState(null);
 	const [previousSchool, setPreviousSchool] = useState(null);
 	const [address, setAddress] = useState(null);
+	const [hifzReportData, setHifzReportData] = useState([]);
+	const [hifzMarksData, setHifzMarksData] = useState([]);
 
 	useEffect(() => {
 		setRollNo(studentData.rollNo);
@@ -48,50 +55,71 @@ function StudentDetailScreen() {
 		setFatherIncome(studentData.fatherIncome);
 		setPreviousSchool(studentData.previousSchool);
 		setAddress(studentData.address);
+
+		const getHifzReport = async () => {
+			const studentDocRef = doc(collection(db, "Student"), studentData.rollNo);
+			const hifzReportQuery = query(
+				collection(studentDocRef, "hifzReport"),
+				orderBy("timestamp", "desc"),
+				limit(1)
+			);
+
+			try {
+				const hifzReportSnapshot = await getDocs(hifzReportQuery);
+
+				const hifzData = [];
+
+				hifzReportSnapshot.forEach((doc) => {
+					hifzData.push({ id: doc.id, ...doc.data() });
+				});
+
+				// Assuming you want to set the state after all queries are done
+				setHifzReportData(hifzData);
+				console.log(hifzReportData);
+			} catch (error) {
+				console.error("Error fetching hifz reports:", error);
+			}
+		};
+
+		getHifzReport();
+
+		const getHifzMarks = async () => {
+			const studentDocRef = doc(collection(db, "Student"), studentData.rollNo);
+			const hifzReportQuery = query(
+				collection(studentDocRef, "hifzMarks"),
+				orderBy("timestamp", "desc"),
+				limit(4)
+			);
+
+			try {
+				const hifzReportSnapshot = await getDocs(hifzReportQuery);
+
+				const hifzData = [];
+
+				hifzReportSnapshot.forEach((doc) => {
+					hifzData.push({ id: doc.id, ...doc.data() });
+				});
+
+				// Assuming you want to set the state after all queries are done
+				setHifzMarksData(hifzData);
+				console.log(hifzReportData);
+			} catch (error) {
+				console.error("Error fetching hifz reports:", error);
+			}
+		};
+
+		getHifzMarks();
 	}, []);
-
-	// useEffect(() => {
-	// 	const getInitialStudents = async () => {
-	// 		const studentQuery = query(
-	// 			collection(db, "Student"),
-	// 			where("name", "==", studentData.name),
-	// 			where("rollNo", "==", studentData.rollNo)
-	// 		);
-
-	// 		const studentSnapshot = await getDocs(studentQuery);
-
-	// 		const students = [];
-
-	// 		studentSnapshot.forEach(async (studentDoc) => {
-	// 			// Assuming 'hifzReport' is a subcollection inside each student document
-	// 			const hifzReportQuery = query(
-	// 				collection(db, "Student", studentDoc.id, "hifzReport"),
-	// 				orderBy("timestamp", "desc"), // Order by timestamp in descending order
-	// 				limit(1) // Limit the results to 1 to get the most recent document
-	// 			);
-
-	// 			const hifzReportSnapshot = await getDocs(hifzReportQuery);
-
-	// 			hifzReportSnapshot.forEach((hifzReportDoc) => {
-	// 				students.push({
-	// 					id: studentDoc.id,
-	// 					studentData: studentDoc.data(),
-	// 					hifzReport: { id: hifzReportDoc.id, ...hifzReportDoc.data() },
-	// 				});
-	// 			});
-
-	// 			// Assuming you want to set the state after all queries are done
-	// 			setStudentData(students);
-	// 		});
-	// 	};
-
-	// 	getInitialStudents();
-	// }, []);
 
 	const editRollNo = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			rollNo: rollNo,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Roll No Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -100,12 +128,22 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			name: name,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Name Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editFatherName = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			fatherName: fatherName,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Father Name Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -114,12 +152,22 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			fatherCNIC: fatherCNIC,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Father CNIC Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editFatherEducation = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			fatherEducation: fatherEducation,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Father Education Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -128,12 +176,22 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			motherEducation: motherEducation,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Mother Education Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editFatherIncome = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			fatherIncome: fatherIncome,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Father Income Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -142,12 +200,22 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			fatherOccupation: fatherOccupation,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Father Occupation Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editStudentCNIC = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			studentCNIC: studentCNIC,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Student CNIC Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -156,12 +224,22 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			completedClass: completedClass,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Completed Class Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editPhoneNumber1 = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			phoneNumber1: phoneNumber1,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Phone Number 1 Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -170,12 +248,22 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			phoneNumber2: phoneNumber2,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Phone Number 2 Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editPreviousSchool = async () => {
 		const docRef = doc(db, "Student", studentData.id);
 		await updateDoc(docRef, {
 			previousSchool: previousSchool,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Previous School Updated in Database",
+			duration: 10,
 		});
 	};
 
@@ -184,6 +272,11 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			recentClass: recentClass,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Recent Class Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const editAddress = async () => {
@@ -191,20 +284,43 @@ function StudentDetailScreen() {
 		await updateDoc(docRef, {
 			address: address,
 		});
+		messageApi.open({
+			type: "success",
+			content: "Address Updated in Database",
+			duration: 10,
+		});
 	};
 
 	const deleteButton = async () => {
-		await deleteDoc(doc(db, "Student", studentData.id));
+		try {
+			await deleteDoc(doc(db, "Student", studentData.id));
+			messageApi.open({
+				type: "success",
+				content: "Student Deleted in Database",
+				duration: 10,
+			});
+
+			navigate(-1);
+		} catch (error) {
+			console.error("Error deleting student:", error);
+			messageApi.open({
+				type: "error",
+				content: "Check Your Internet Connection",
+				duration: 10,
+			});
+		}
 	};
 
 	return (
 		<div className="studentDetailBody">
+			{contextHolder}
 			{/* Page Title Name */}
 			<div className="studentDetailPageTitleContainer">
 				<h2 className="studentDetailPageTitle">{studentData.name}</h2>
 			</div>
 			{/* Playground Area */}
 			<div className="studentDetailPlayground">
+				{/* Student Info Container */}
 				<div className="studentDetailStudentInfo">
 					<div className="studentDetailStudentInfoColoum">
 						<TextInput
@@ -305,10 +421,17 @@ function StudentDetailScreen() {
 						/>
 					</div>
 				</div>
+				{/* Hifz Report Container */}
 				<div className="studentDetailhifzReport">
 					<h3 className="studentDetailHeading">HIFZ REPORT</h3>
-					<div>
-						<HifzTextMarksInput />
+					<div className="studentDetailHifzReportContainer">
+						{hifzReportData.map((report, index) => (
+							<HifzTextMarksInput
+								key={index}
+								date={report.date}
+								marks={report.marks}
+							/>
+						))}
 					</div>
 				</div>
 			</div>
@@ -322,5 +445,4 @@ function StudentDetailScreen() {
 		</div>
 	);
 }
-
 export default StudentDetailScreen;
