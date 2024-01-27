@@ -11,26 +11,47 @@ function FeeSubmissionListScreen() {
 	const [date, setDate] = useState(null);
 	const [feeData, setFeeData] = useState([]);
 	dayjs.extend(customParseFormat);
+	const [totalAmounts, setTotalAmounts] = useState({
+		totalAdmissionFee: 0,
+		totalOriginalFee: 0,
+		totalReceivedFee: 0,
+		totalMiscFee: 0,
+	});
 
 	/** Manually entering any of the following formats will perform date parsing */
 	const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY", "DD-MM-YYYY", "DD-MM-YY"];
 
-	// useEffect(() => {
-	// 	const getInitialFees = async () => {
-	// 		const q = query(
-	// 			collection(db, "FeeSubmission"),
-	// 			where("date", "==", date)
-	// 		);
-	// 		const querySnapshot = await getDocs(q);
-	// 		const fees = [];
-	// 		querySnapshot.forEach((doc) => {
-	// 			fees.push({ id: doc.id, ...doc.data() });
-	// 		});
-	// 		setFeeData(fees);
-	// 	};
+	useEffect(() => {
+		const getInitialFees = async () => {
+			const q = query(
+				collection(db, "FeeSubmission"),
+				where("date", "==", date)
+			);
+			const querySnapshot = await getDocs(q);
+			const fees = [];
+			let totalAdmissionFee = 0;
+			let totalOriginalFee = 0;
+			let totalReceivedFee = 0;
+			let totalMiscFee = 0;
+			querySnapshot.forEach((doc) => {
+				const data = { id: doc.id, ...doc.data() };
+				fees.push(data);
+				totalAdmissionFee += parseFloat(data.admissionFee) || 0;
+				totalOriginalFee += parseFloat(data.originalFee) || 0;
+				totalReceivedFee += parseFloat(data.receivedFee) || 0;
+				totalMiscFee += parseFloat(data.miscFee) || 0;
+			});
+			setFeeData(fees);
+			setTotalAmounts({
+				totalAdmissionFee,
+				totalOriginalFee,
+				totalReceivedFee,
+				totalMiscFee,
+			});
+		};
 
-	// 	getInitialFees();
-	// }, [date]); // Add className to dependency array to rerun effect when it changes
+		getInitialFees();
+	}, [date]); // Add className to dependency array to rerun effect when it changes
 
 	const handleDatePicker = (value) => {
 		setDate(value.$d);
@@ -53,7 +74,7 @@ function FeeSubmissionListScreen() {
 				<div>
 					<Space direction="vertical" size={12}>
 						<DatePicker
-							defaultValue={dayjs("01/01/2015", dateFormatList[0])}
+							defaultValue={dayjs("01/01/2024", dateFormatList[0])}
 							format={dateFormatList}
 							onChange={handleDatePicker}
 						/>
@@ -70,6 +91,7 @@ function FeeSubmissionListScreen() {
 					<p className="feeSubmissionListTabName">ADMISSION FEE</p>
 					<p className="feeSubmissionListTabName">ORIGINAL FEE</p>
 					<p className="feeSubmissionListTabName">RECEIVED FEE</p>
+					<p className="feeSubmissionListTabName">MISC FEE</p>
 				</div>
 			</div>
 			{/* PlayGround of feeSubmission Details */}
@@ -87,8 +109,45 @@ function FeeSubmissionListScreen() {
 							<p className="feeSubmissionListTabName">{data.admissionFee}</p>
 							<p className="feeSubmissionListTabName">{data.originalFee}</p>
 							<p className="feeSubmissionListTabName">{data.receivedFee}</p>
+							<p className="feeSubmissionListTabName">{data.miscFee}</p>
 						</button>
 					))}
+				</div>
+			</div>
+			<div className="feeSubmissionListTotalCountOutterContainer">
+				<div className="feeSubmissionListTotalCountInnerContainer">
+					<div className="feeSubmissionListTotalCountEachContainer">
+						<p className="feeSubmissionListTotalCountEachContainerTitle">
+							TOTAL ADMISSION FEE:
+						</p>
+						<p className="feeSubmissionListTotalCountEachContainerAmount">
+							{totalAmounts.totalAdmissionFee}
+						</p>
+					</div>
+					<div className="feeSubmissionListTotalCountEachContainer">
+						<p className="feeSubmissionListTotalCountEachContainerTitle">
+							TOTAL ORIGINAL FEE:
+						</p>
+						<p className="feeSubmissionListTotalCountEachContainerAmount">
+							{totalAmounts.totalOriginalFee}
+						</p>
+					</div>
+					<div className="feeSubmissionListTotalCountEachContainer">
+						<p className="feeSubmissionListTotalCountEachContainerTitle">
+							TOTAL RECEIVED FEE:
+						</p>
+						<p className="feeSubmissionListTotalCountEachContainerAmount">
+							{totalAmounts.totalReceivedFee}
+						</p>
+					</div>
+					<div className="feeSubmissionListTotalCountEachContainer">
+						<p className="feeSubmissionListTotalCountEachContainerTitle">
+							TOTAL MISC FEE:
+						</p>
+						<p className="feeSubmissionListTotalCountEachContainerAmount">
+							{totalAmounts.totalMiscFee}
+						</p>
+					</div>
 				</div>
 			</div>
 			<button
