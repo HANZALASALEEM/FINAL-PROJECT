@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+.eventListBody {
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+}
+.eventListPageTitleContainer {
+	width: 100%;
+	height: 60px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.eventListPageTitle {
+	font-family: "Avera Libre";
+	color: #3a62d7;
+	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+}
+.eventListClassPickerContainer {
+	width: 100%;
+	height: 50px;
+	align-items: center;
+	display: flex;
+	justify-content: end;
+	padding-right: 50px;
+}
+.eventListClassTitle {
+	font-family: "Avera Libre";
+	color: #000000;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	margin-top: 17px;
+	margin-right: 5px;
+}
+.eventListTabbarOutterContainer {
+	width: 100%;
+	height: 50px;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.eventListTabbarInnerContainer {
+	width: 95%;
+	height: 40px;
+	border-radius: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	display: flex;
+	flex-direction: row;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.eventListTabNameDate {
+	font-family: "Avera Libre";
+	color: #000000;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	padding-top: 17px;
+	width: 10%;
+	display: flex;
+	align-self: center;
+}
+.eventListTabNameEvent {
+	font-family: "Avera Libre";
+	color: #000000;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	padding-top: 17px;
+	width: 90%;
+	display: flex;
+	align-self: center;
+}
+.eventListEventDetailOutterContainer {
+	width: 100%;
+	height: 65%;
+	display: flex;
+	justify-content: center;
+}
+.eventListEventDetailInnerContainer {
+	width: 95%;
+	border-radius: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	padding-top: 20px;
+	padding-bottom: 20px;
+	max-height: 100%;
+	overflow: auto; /* Add overflow property to enable scrolling */
+}
+.eventListEventDetailContainer {
+	width: 100%;
+	height: 40px;
+	display: flex;
+	flex-direction: row;
+	padding-left: 50px;
+	padding-right: 50px;
+	border-width: 0px;
+}
+.eventListAddEventButton {
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	background-color: #3a62d7;
+	border-width: 0px;
+	border-radius: 35px;
+	bottom: 10px;
+	right: 25px;
+}
+.eventListIcon {
+	width: 30px;
+	height: 30px;
+}

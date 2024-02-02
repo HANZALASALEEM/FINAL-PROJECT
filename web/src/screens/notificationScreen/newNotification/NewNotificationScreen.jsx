@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./NewNotificationScreen.css";
-import TextInput from "../../../component/textInput/TextInput";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.config";
 import { message, DatePicker, Space } from "antd";
@@ -74,9 +73,7 @@ function NewNotificationScreen() {
 							rows="15"
 							cols="30"
 							onChange={(text) => setNotification(text.target.value)}
-						>
-							Type the Content of the Notification.
-						</textarea>
+						/>
 					</div>
 				</div>
 			</div>

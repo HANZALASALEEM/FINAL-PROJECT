@@ -34,6 +34,11 @@ function NotificationListScreen() {
 		setYear(value);
 	};
 
+	const handleNotificationDetailButton = (data) => {
+		// Navigate to another page and pass the data as props
+		navigate("/NotificationDetail", { state: { notificationData: data } });
+	};
+
 	const handleNewNotificationButton = () => {
 		// Navigate to another page and pass the data as props
 		navigate("/NewNotification");
@@ -103,6 +108,7 @@ function NotificationListScreen() {
 						<button
 							className="notificationListNotificationDetailContainer"
 							key={data.id}
+							onClick={() => handleNotificationDetailButton(data)}
 						>
 							<p className="notificationListTabNameDate">
 								{data.date.toDate().toLocaleDateString()}

@@ -19,6 +19,10 @@ import FeeSubmissionListScreen from "./screens/feeSubmission/feeSubmissionList/F
 import NewFeeSubmissionScreen from "./screens/feeSubmission/newFeeSubmission/NewFeeSubmissionScreen";
 import NotificationListScreen from "./screens/notificationScreen/notificationList/NotificationListScreen";
 import NewNotificationScreen from "./screens/notificationScreen/newNotification/NewNotificationScreen";
+import NotificationDetailScreen from "./screens/notificationScreen/notificationDetail/NotificationDetailScreen";
+import EventListScreen from "./screens/eventScreen/eventList/EventListScreen";
+import NewEventScreen from "./screens/eventScreen/newEvent/NewEventScreen";
+import EventDetailScreen from "./screens/eventScreen/eventDetail/EventDetailScreen";
 function App() {
 	return (
 		<>
@@ -53,6 +57,14 @@ function App() {
 					path="NewNotification"
 					element={<NewNotificationScreen />}
 				/>
+				<Route
+					exact
+					path="NotificationDetail"
+					element={<NotificationDetailScreen />}
+				/>
+				<Route exact path="EventsList" element={<EventListScreen />} />
+				<Route exact path="NewEvent" element={<NewEventScreen />} />
+				<Route exact path="EventDetail" element={<EventDetailScreen />} />
 			</Routes>
 		</>
 	);
