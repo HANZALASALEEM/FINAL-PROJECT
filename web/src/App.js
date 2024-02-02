@@ -1,7 +1,6 @@
 import "./App.css";
 import LoginScreen from "./screens/loginScreen/LoginScreen";
 import { Route, Routes } from "react-router-dom";
-import PageNavigator from "./screens/PageNavigator";
 import react, { useState } from "react";
 import { db } from "./firebase/firebase.config";
 import { getDocs, collection, query } from "firebase/firestore";
@@ -18,6 +17,8 @@ import AdmissionListScreen from "./screens/admissionScreen/admissionList/Admissi
 import NewAdmissionScreen from "./screens/admissionScreen/newAdmission/NewAdmissionScreen";
 import FeeSubmissionListScreen from "./screens/feeSubmission/feeSubmissionList/FeeSubmissionListScreen";
 import NewFeeSubmissionScreen from "./screens/feeSubmission/newFeeSubmission/NewFeeSubmissionScreen";
+import NotificationListScreen from "./screens/notificationScreen/notificationList/NotificationListScreen";
+import NewNotificationScreen from "./screens/notificationScreen/newNotification/NewNotificationScreen";
 function App() {
 	return (
 		<>
@@ -41,6 +42,16 @@ function App() {
 					exact
 					path="NewFeeSubmission"
 					element={<NewFeeSubmissionScreen />}
+				/>
+				<Route
+					exact
+					path="NotificationList"
+					element={<NotificationListScreen />}
+				/>
+				<Route
+					exact
+					path="NewNotification"
+					element={<NewNotificationScreen />}
 				/>
 			</Routes>
 		</>
