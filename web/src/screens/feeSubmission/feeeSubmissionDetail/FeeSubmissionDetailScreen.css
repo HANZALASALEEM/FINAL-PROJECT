@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+.feeSubmissionDetailBody {
+	width: 100vw;
+	/* background-color: aqua; */
+	display: flex;
+	flex-direction: column;
+	height: 90vh;
+	/* justify-content: center; */
+	align-items: center;
+}
+.feeSubmissionDetailPageTitleContainer {
+	width: 100%;
+	height: 60px;
+	/* background-color: rgb(242, 242, 255); */
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.feeSubmissionDetailPageTitle {
+	font-family: "Avera Libre";
+	color: #3a62d7;
+	text-shadow: 2px 2px 6px rgba(58, 98, 215, 0.6);
+}
+.feeSubmissionDetailPlayground {
+	width: 100%;
+	height: 90%;
+	overflow: auto;
+	/* display: flex; */
+	/* background-color: rgb(77, 87, 87); */
+}
+.feeSubmissionDetailAdmissionInfo {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.feeSubmissionDetailAdmissionInfoColoum {
+	width: 33%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.feeSubmissionDetailClassPickerContainer {
+	width: 100%;
+	height: 50px;
+	align-items: center;
+	display: flex;
+	justify-content: end;
+	padding-right: 50px;
+}
+.feeSubmissionDetailClassTitle {
+	font-family: "Avera Libre";
+	color: #000000;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	margin-top: 17px;
+	margin-right: 5px;
+}
+.feeSubmissionDetailEditButton {
+	border-width: 0px;
+	background-color: white;
+}
+.feeSubmissionDetailEditButtonIcon {
+	width: 20px;
+	height: 20px;
+}
+.feeSubmissionDetailDeleteButton {
+	width: 30%;
+	height: 40px;
+	border-radius: 30px;
+	border-width: 0.1px;
+	border-color: rgb(162, 162, 162);
+	background-color: red;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+	margin: 10px;
+	margin-top: 50px;
+	color: black;
+}
+.feeSubmissionDetailDeleteButton:hover {
+	box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.6);
+}

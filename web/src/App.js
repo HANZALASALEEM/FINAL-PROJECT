@@ -23,6 +23,8 @@ import NotificationDetailScreen from "./screens/notificationScreen/notificationD
 import EventListScreen from "./screens/eventScreen/eventList/EventListScreen";
 import NewEventScreen from "./screens/eventScreen/newEvent/NewEventScreen";
 import EventDetailScreen from "./screens/eventScreen/eventDetail/EventDetailScreen";
+import FeeSubmissionDetailScreen from "./screens/feeSubmission/feeeSubmissionDetail/FeeSubmissionDetailScreen";
+import AdmissionDetailScreen from "./screens/admissionScreen/admissionDetail/AdmissionDetailScreen";
 function App() {
 	return (
 		<>
@@ -39,6 +41,11 @@ function App() {
 				<Route exact path="NewAdmission" element={<NewAdmissionScreen />} />
 				<Route
 					exact
+					path="AdmissionDetail"
+					element={<AdmissionDetailScreen />}
+				/>
+				<Route
+					exact
 					path="FeeSubmissionList"
 					element={<FeeSubmissionListScreen />}
 				/>
@@ -46,6 +53,11 @@ function App() {
 					exact
 					path="NewFeeSubmission"
 					element={<NewFeeSubmissionScreen />}
+				/>
+				<Route
+					exact
+					path="FeeSubmissionDetail"
+					element={<FeeSubmissionDetailScreen />}
 				/>
 				<Route
 					exact

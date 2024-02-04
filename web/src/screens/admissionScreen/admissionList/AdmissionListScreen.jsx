@@ -27,6 +27,11 @@ function AdmissionListScreen() {
 		setYear(value);
 	};
 
+	const handleAdmissionDetailButton = (data) => {
+		// Navigate to another page and pass the data as props
+		navigate("/AdmissionDetail", { state: { admissionData: data } });
+	};
+
 	const handleNewAdmissionButton = () => {
 		// Navigate to another page and pass the data as props
 		navigate("/NewAdmission");
@@ -35,7 +40,7 @@ function AdmissionListScreen() {
 		<div className="admissionListBody">
 			{/* Page Title Name */}
 			<div className="admissionListPageTitleContainer">
-				<h2 className="admissionListPageTitle">Admission List</h2>
+				<h2 className="admissionListPageTitle">ADMISSION LIST</h2>
 			</div>
 			{/* Class Picker Container */}
 			<div className="admissionListClassPickerContainer">
@@ -99,6 +104,7 @@ function AdmissionListScreen() {
 						<button
 							className="admissionListAdmissionDetailContainer"
 							key={data.id}
+							onClick={() => handleAdmissionDetailButton(data)}
 						>
 							<p className="admissionListTabName">{data.name}</p>
 							<p className="admissionListTabName">{data.fatherName}</p>

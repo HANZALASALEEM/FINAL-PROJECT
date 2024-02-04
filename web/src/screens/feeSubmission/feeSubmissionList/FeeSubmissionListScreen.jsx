@@ -58,6 +58,11 @@ function FeeSubmissionListScreen() {
 		console.log(date);
 	};
 
+	const handleFeeSubmissionDetailButton = (data) => {
+		// Navigate to another page and pass the data as props
+		navigate("/FeeSubmissionDetail", { state: { feeData: data } });
+	};
+
 	const handleNewFeeButton = () => {
 		// Navigate to another page and pass the data as props
 		navigate("/NewFeeSubmission");
@@ -66,7 +71,7 @@ function FeeSubmissionListScreen() {
 		<div className="feeSubmissionListBody">
 			{/* Page Title Name */}
 			<div className="feeSubmissionListPageTitleContainer">
-				<h2 className="feeSubmissionListPageTitle">Fee Submission List</h2>
+				<h2 className="feeSubmissionListPageTitle">FEE SUBMISSION LIST</h2>
 			</div>
 			{/* Class Picker Container */}
 			<div className="feeSubmissionListClassPickerContainer">
@@ -101,6 +106,7 @@ function FeeSubmissionListScreen() {
 						<button
 							className="feeSubmissionListFeeSubmissionDetailContainer"
 							key={data.id}
+							onClick={() => handleFeeSubmissionDetailButton(data)}
 						>
 							<p className="feeSubmissionListTabName">{data.rollNo}</p>
 							<p className="feeSubmissionListTabName">{data.name}</p>

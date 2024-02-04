@@ -60,7 +60,7 @@ function NewFeeSubmissionScreen() {
 		<div className="newAdmissionBody">
 			{/* Page Title Name */}
 			<div className="newAdmissionPageTitleContainer">
-				<h2 className="newAdmissionPageTitle">ADD NEW ADMISSION</h2>
+				<h2 className="newAdmissionPageTitle">ADD NEW FEE</h2>
 			</div>
 			{/* Year Picker Container */}
 			<div className="admissionListClassPickerContainer">
