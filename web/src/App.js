@@ -25,6 +25,9 @@ import NewEventScreen from "./screens/eventScreen/newEvent/NewEventScreen";
 import EventDetailScreen from "./screens/eventScreen/eventDetail/EventDetailScreen";
 import FeeSubmissionDetailScreen from "./screens/feeSubmission/feeeSubmissionDetail/FeeSubmissionDetailScreen";
 import AdmissionDetailScreen from "./screens/admissionScreen/admissionDetail/AdmissionDetailScreen";
+import ExpenseListScreen from "./screens/expenseScreen/expenseList/ExpenseListScreen";
+import NewExpenseScreen from "./screens/expenseScreen/newExpense/NewExpenseScreen";
+import ExpenseDetailScreen from "./screens/expenseScreen/expenseDetail/ExpenseDetailScreen";
 function App() {
 	return (
 		<>
@@ -77,6 +80,9 @@ function App() {
 				<Route exact path="EventsList" element={<EventListScreen />} />
 				<Route exact path="NewEvent" element={<NewEventScreen />} />
 				<Route exact path="EventDetail" element={<EventDetailScreen />} />
+				<Route exact path="ExpensesList" element={<ExpenseListScreen />} />
+				<Route exact path="NewExpense" element={<NewExpenseScreen />} />
+				<Route exact path="ExpenseDetail" element={<ExpenseDetailScreen />} />
 			</Routes>
 		</>
 	);

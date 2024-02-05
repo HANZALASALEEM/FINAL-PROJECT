@@ -57,14 +57,14 @@ function NewFeeSubmissionScreen() {
 	};
 
 	return (
-		<div className="newAdmissionBody">
+		<div className="newFeeSubmissionBody">
 			{/* Page Title Name */}
-			<div className="newAdmissionPageTitleContainer">
-				<h2 className="newAdmissionPageTitle">ADD NEW FEE</h2>
+			<div className="newFeeSubmissionPageTitleContainer">
+				<h2 className="newFeeSubmissionPageTitle">ADD NEW FEE</h2>
 			</div>
 			{/* Year Picker Container */}
-			<div className="admissionListClassPickerContainer">
-				<p className="admissionListClassTitle">DATE: </p>
+			<div className="newFeeSubmissionClassPickerContainer">
+				<p className="newFeeSubmissionClassTitle">DATE: </p>
 				<div>
 					<Space direction="vertical" size={12}>
 						<DatePicker
@@ -76,9 +76,9 @@ function NewFeeSubmissionScreen() {
 				</div>
 			</div>
 			{/* Playground Area */}
-			<div className="newAdmissionPlayground">
-				<div className="newAdmissionAdmissionInfo">
-					<div className="newAdmissionAdmissionInfoColoum">
+			<div className="newFeeSubmissionPlayground">
+				<div className="newFeeSubmissionAdmissionInfo">
+					<div className="newFeeSubmissionAdmissionInfoColoum">
 						<TextInput
 							title={"STUDENT ROLL NO: "}
 							changeText={(text) => setRollNo(text)}
@@ -92,7 +92,7 @@ function NewFeeSubmissionScreen() {
 							changeText={(text) => setOriginalFee(text)}
 						/>
 					</div>
-					<div className="newAdmissionAdmissionInfoColoum">
+					<div className="newFeeSubmissionAdmissionInfoColoum">
 						<TextInput
 							title={"STUDENT NAME: "}
 							changeText={(text) => setName(text)}
@@ -106,7 +106,7 @@ function NewFeeSubmissionScreen() {
 							changeText={(text) => setReceivedFee(text)}
 						/>
 					</div>
-					<div className="newAdmissionAdmissionInfoColoum">
+					<div className="newFeeSubmissionAdmissionInfoColoum">
 						<TextInput
 							title={"FATHER NAME: "}
 							changeText={(text) => setFatherName(text)}
@@ -125,7 +125,7 @@ function NewFeeSubmissionScreen() {
 			</div>
 			{/* Save Button */}
 			{contextHolder}
-			<button className="newAdmissionSaveButton" onClick={handleSaveButton}>
+			<button className="newFeeSubmissionSaveButton" onClick={handleSaveButton}>
 				Save
 			</button>
 		</div>
