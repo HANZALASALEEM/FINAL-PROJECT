@@ -44,17 +44,16 @@ function NewStudentScreen() {
 	// 	try {
 	// 		const studentCollectionRef = collection(db, "Student");
 
-	// 		// Add a new document to the "Student" collection with a specific rollNo
-	// 		const docRef = await addDoc(studentCollectionRef, newStudentData);
+	// 		// Use setDoc to update or create a document with a specific rollNo
+	// 		await addDoc(studentCollectionRef, newStudentData);
 
-	// 		console.log("Document added with ID: ", docRef.id);
 	// 		messageApi.open({
 	// 			type: "success",
-	// 			content: "New Student Added in Database",
+	// 			content: "Student Data Saved in Database",
 	// 			duration: 10,
 	// 		});
 	// 	} catch (error) {
-	// 		console.error("Error adding document: ", error);
+	// 		console.error("Error saving document: ", error);
 	// 	}
 	// };
 

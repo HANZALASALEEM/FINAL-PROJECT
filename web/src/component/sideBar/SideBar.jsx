@@ -63,7 +63,7 @@ function SideBar() {
 						</div>
 						<div className="navLink">
 							<NavLink
-								to="/TimeTable"
+								to="/TimeTableList"
 								className="link"
 								activeClassName="active"
 							>

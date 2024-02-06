@@ -28,6 +28,8 @@ import AdmissionDetailScreen from "./screens/admissionScreen/admissionDetail/Adm
 import ExpenseListScreen from "./screens/expenseScreen/expenseList/ExpenseListScreen";
 import NewExpenseScreen from "./screens/expenseScreen/newExpense/NewExpenseScreen";
 import ExpenseDetailScreen from "./screens/expenseScreen/expenseDetail/ExpenseDetailScreen";
+import TimeTableListScreen from "./screens/timeTableScreen/timeTableList/TimeTableListScreen";
+import NewTimeTableScreen from "./screens/timeTableScreen/newTimeTable/NewTimeTableScreen";
 function App() {
 	return (
 		<>
@@ -83,6 +85,8 @@ function App() {
 				<Route exact path="ExpensesList" element={<ExpenseListScreen />} />
 				<Route exact path="NewExpense" element={<NewExpenseScreen />} />
 				<Route exact path="ExpenseDetail" element={<ExpenseDetailScreen />} />
+				<Route exact path="TimeTableList" element={<TimeTableListScreen />} />
+				<Route exact path="NewTimeTable" element={<NewTimeTableScreen />} />
 			</Routes>
 		</>
 	);
