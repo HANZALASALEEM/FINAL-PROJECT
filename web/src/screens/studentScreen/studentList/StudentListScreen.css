@@ -96,3 +96,15 @@
 	width: 30px;
 	height: 30px;
 }
+.studentListPdfGenerateButton {
+	position: absolute;
+	top: 60px;
+	left: 30px;
+
+	background-color: #ffffff;
+	border-width: 0px;
+}
+.studentListPdfGenerateIcon {
+	width: 40px;
+	height: 40px;
+}

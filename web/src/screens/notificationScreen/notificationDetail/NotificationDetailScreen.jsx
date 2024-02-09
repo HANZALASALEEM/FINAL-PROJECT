@@ -30,21 +30,12 @@ function NotificationDetailScreen() {
 		setDate(notificationData.date);
 		setYear(notificationData.year);
 		setNotification(notificationData.notification);
-
-		console.log(date);
-		console.log(year);
-		console.log(notification);
 	}, []);
 
 	dayjs.extend(customParseFormat);
 
 	/** Manually entering any of the following formats will perform date parsing */
 	const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY", "DD-MM-YYYY", "DD-MM-YY"];
-	const notificationDetailData = {
-		date: date,
-		notification: notification,
-		year: year,
-	};
 
 	const handleDatePicker = (value) => {
 		setDate(value.$d);
