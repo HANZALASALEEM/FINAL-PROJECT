@@ -6,7 +6,7 @@ import { db } from "../../../firebase/firebase.config";
 import { message } from "antd";
 function NewEmployeeScreen() {
 	const [messageApi, contextHolder] = message.useMessage();
-	const [name, setName] = useState(null);
+	const [name, setName] = useState("");
 	const [fatherName, setFatherName] = useState(null);
 	const [employeeCNIC, setEmployeeCNIC] = useState(null);
 	const [phoneNumber1, setPhoneNumber1] = useState(null);
@@ -29,9 +29,10 @@ function NewEmployeeScreen() {
 		education: education,
 		previousJob: previousJob,
 		previousSalary: previousSalary,
-		designation: designation,
+		designation: designation.toLowerCase(),
 		salary: salary,
 		address: address,
+		email: name.split(" ")[0].toLowerCase() + "@suffah.edu.pk",
 	};
 
 	const handleSaveButton = async () => {

@@ -21,7 +21,9 @@ const OnBoardingScreen1 = () => {
       <StatusBar backgroundColor="#ffffff" />
       {/* 10% height of Skip Button */}
       <View style={styles.skipButtonContainer}>
-        <TouchableOpacity style={styles.skipButton}>
+        <TouchableOpacity
+          style={styles.skipButton}
+          onPress={() => navigation.navigate('OnBoardingScreen3')}>
           <Text style={styles.skipButtonTitle}>SKIP</Text>
         </TouchableOpacity>
       </View>
