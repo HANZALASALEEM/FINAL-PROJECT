@@ -7,12 +7,15 @@ import { message, DatePicker, Space, Upload, Button, Input } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { UploadOutlined } from "@ant-design/icons";
+import TextInput from "../../../component/textInput/TextInput";
 function NewEventScreen() {
 	const [messageApi, contextHolder] = message.useMessage();
 	const [date, setDate] = useState(null);
 	const [event, setEvent] = useState(null);
 	const [year, setYear] = useState(null);
 	const [image, setImage] = useState(null);
+	const [title, setTitle] = useState(null);
+
 	dayjs.extend(customParseFormat);
 
 	/** Manually entering any of the following formats will perform date parsing */
@@ -22,6 +25,7 @@ function NewEventScreen() {
 		event: event,
 		year: year,
 		image: image,
+		title: title,
 	};
 
 	const handleDatePicker = (value) => {
@@ -110,7 +114,11 @@ function NewEventScreen() {
 						{/* <button className="newEventAddImageButton">Add Image</button> */}
 					</div>
 					<div className="newEventInputContainer">
-						<p className="EventListClassTitle">EVENT: </p>
+						<TextInput
+							title={"EVENT TITLE: "}
+							changeText={(text) => setTitle(text)}
+						/>
+						<p className="EventListClassTitle">EVENT DETAIL: </p>
 						<textarea
 							className="newEventInput"
 							rows="15"

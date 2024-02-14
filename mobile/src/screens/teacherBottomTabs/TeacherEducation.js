@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const BottomNavigator = () => {
+const TeacherEducation = () => {
   return (
     <View>
-      <Text>BottomNavigator</Text>
+      <Text>TeacherEducation</Text>
     </View>
   );
 };
 
-export default BottomNavigator;
+export default TeacherEducation;
 
 const styles = StyleSheet.create({});

@@ -7,6 +7,9 @@ import OnBoardingScreen2 from '../screens/splashScreens/OnBoardingScreen2';
 import OnBoardingScreen3 from '../screens/splashScreens/OnBoardingScreen3';
 import WhoAreYouScreen from '../screens/splashScreens/WhoAreYouScreen';
 import TeacherLoginScreen from '../screens/loginScreens/TeacherLoginScreen';
+import TeacherBottomNavigator from './TeacherBottomNavigator';
+import StudentNotification from '../screens/studentBottomTabs/StudentNotification';
+import NotificationViewScreen from '../screens/NotificationViewScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +44,21 @@ const AppNavigator = () => {
       <Stack.Screen
         name="TeacherLoginScreen"
         component={TeacherLoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="TeacherBottomNavigator"
+        component={TeacherBottomNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StudentNotification"
+        component={StudentNotification}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="NotificationViewScreen"
+        component={NotificationViewScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

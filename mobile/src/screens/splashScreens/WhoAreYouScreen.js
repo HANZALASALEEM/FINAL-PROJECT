@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, StatusBar} from 'react-native';
 import React from 'react';
 import COLOR from '../../assets/color/Color';
 import {
@@ -11,6 +11,7 @@ const WhoAreYouScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#ffffff" />
       {/* 30% For Heading Container */}
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>WHO ARE YOU?</Text>

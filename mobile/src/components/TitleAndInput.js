@@ -16,8 +16,8 @@ const TitleAndInput = ({icon, title, placeholder, value, onChangeText}) => {
         style={styles.input}
         placeholder={placeholder}
         value={value}
-        onChangeText={() => {
-          onChangeText();
+        onChangeText={text => {
+          onChangeText(text);
         }}
       />
     </View>
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     borderColor: '#bfbfbf',
     shadowColor: COLOR.lightBlue, // Shadow color
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 2,
+      height: 4,
     },
     shadowOpacity: 0.7, // Shadow opacity (0 to 1)
     shadowRadius: 3.84, // Shadow blur radius

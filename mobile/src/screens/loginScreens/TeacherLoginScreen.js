@@ -4,8 +4,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import COLOR from '../../assets/color/Color';
 import {
   heightPercentageToDP as hp,
@@ -19,31 +20,57 @@ import {db} from '../../firebase/firebase.config';
 const TeacherLoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('hanzala@suffah.edu.pk');
-  const [password, setPassword] = useState('Your CNIC');
+  const [password, setPassword] = useState('3410148815107');
   const [employeeData, setEmployeeData] = useState([]);
 
-  const signIn = async () => {
-    console.log('Sign In');
-    const q = query(
-      collection(db, 'Employee'),
-      where('email', '==', email),
-      where('employeeCNIC', '==', password),
-      where('designation', '==', 'teacher'),
-    );
-    const querySnapshot = await getDocs(q);
-    const employee = [];
-    querySnapshot.forEach(doc => {
-      employee.push({id: doc.id, ...doc.data()});
-    });
-    setEmployeeData(employee);
+  useEffect(() => {
+    console.log('Employee Data:', employeeData);
+  }, [employeeData]);
 
-    // Check if any employee found
-    if (employee.length > 0) {
-      // Navigate to the other screen and pass data
-      navigation.navigate('OnBoardingScreen1', {data: employee[0]});
-      console.log(employee[0]);
-    } else {
-      console.log('Employee not found');
+  const signIn = async () => {
+    try {
+      console.log('Sign In');
+      console.log(email);
+      console.log(password);
+      const q = query(
+        collection(db, 'Employee'),
+        where('email', '==', email),
+        where('employeeCNIC', '==', password),
+        where('designation', '==', 'teacher'),
+      );
+      const querySnapshot = await getDocs(q);
+      const employee = [];
+      querySnapshot.forEach(doc => {
+        employee.push({id: doc.id, ...doc.data()});
+      });
+      setEmployeeData(employee);
+      console.log(employeeData);
+      // Check if any employee found
+      if (employee.length > 0) {
+        // Navigate to the other screen and pass data
+        navigation.navigate('TeacherBottomNavigator', {data: employee[0]});
+        console.log(employee[0]);
+        console.log('employee length is working');
+      } else {
+        Alert.alert(
+          'Try Again',
+          'Employee not found. Try again with correct email or password.',
+        );
+      }
+    } catch (error) {
+      console.error('Sign In Error:', error);
+      // Check if the error is a network error
+      if (error.code === 'unavailable') {
+        Alert.alert(
+          'Network Error',
+          'Unable to connect to the server. Please check your internet connection.',
+        );
+      } else {
+        Alert.alert(
+          'Error',
+          'An unexpected error occurred. Please try again later.',
+        );
+      }
     }
   };
 

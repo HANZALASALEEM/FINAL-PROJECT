@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { UploadOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
+import TextInput from "../../../component/textInput/TextInput";
 function EventDetailScreen() {
 	const navigate = useNavigate();
 	const { state } = useLocation();
@@ -24,16 +25,14 @@ function EventDetailScreen() {
 	const [event, setEvent] = useState(null);
 	const [year, setYear] = useState(null);
 	const [image, setImage] = useState(null);
+	const [title, setTitle] = useState(null);
 	dayjs.extend(customParseFormat);
 
 	useEffect(() => {
 		setDate(eventData.date);
 		setYear(eventData.year);
 		setEvent(eventData.event);
-
-		console.log(date);
-		console.log(year);
-		console.log(event);
+		setTitle(eventData.title);
 	}, []);
 
 	/** Manually entering any of the following formats will perform date parsing */
@@ -57,7 +56,7 @@ function EventDetailScreen() {
 		});
 	};
 
-	const editEvent = async () => {
+	const editEventDetail = async () => {
 		const docRef = doc(db, "Event", eventData.id);
 		await updateDoc(docRef, {
 			event: event,
@@ -65,6 +64,18 @@ function EventDetailScreen() {
 		messageApi.open({
 			type: "success",
 			content: "Content of Notification Updated in Database",
+			duration: 10,
+		});
+	};
+
+	const editEventTitle = async () => {
+		const docRef = doc(db, "Event", eventData.id);
+		await updateDoc(docRef, {
+			title: title,
+		});
+		messageApi.open({
+			type: "success",
+			content: "Event Title Updated in Database",
 			duration: 10,
 		});
 	};
@@ -175,6 +186,14 @@ function EventDetailScreen() {
 						</Upload>
 					</div>
 					<div className="eventDetailInputContainer">
+						<TextInput
+							title={"EVENT TITLE: "}
+							changeText={(text) => setTitle(text)}
+							value={title}
+							onEdit={() => {
+								editEventTitle();
+							}}
+						/>
 						<div
 							style={{
 								display: "flex",
@@ -185,7 +204,7 @@ function EventDetailScreen() {
 							<button
 								className="eventDetailEditButton"
 								onClick={() => {
-									editEvent();
+									editEventDetail();
 								}}
 							>
 								<img
