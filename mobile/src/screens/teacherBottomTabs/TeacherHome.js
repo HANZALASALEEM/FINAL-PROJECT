@@ -127,23 +127,23 @@ const TeacherHome = ({route}) => {
                 <View style={styles.timetableItem}>
                   <Text
                     style={[
-                      styles.classInchargeText,
+                      styles.descriptionText,
                       {color: COLOR.blue, fontWeight: '600'},
                     ]}>
                     {item.subject}
                   </Text>
-                  <Text style={styles.classInchargeText}>{item.class}</Text>
+                  <Text style={styles.descriptionText}>{item.class}</Text>
                   <Text
                     style={[
-                      styles.classInchargeText,
+                      styles.descriptionText,
                       {color: COLOR.blue, fontWeight: '600'},
                     ]}>
                     {item.startingTime}
                   </Text>
-                  <Text style={styles.classInchargeText}>TO</Text>
+                  <Text style={styles.descriptionText}>TO</Text>
                   <Text
                     style={[
-                      styles.classInchargeText,
+                      styles.descriptionText,
                       {color: COLOR.blue, fontWeight: '600'},
                     ]}>
                     {item.endingTime}
@@ -186,12 +186,12 @@ const TeacherHome = ({route}) => {
                   onPress={() =>
                     navigation.navigate('NotificationViewScreen', {data: item})
                   }>
-                  <Text style={[styles.classInchargeText, {color: COLOR.blue}]}>
+                  <Text style={[styles.descriptionText, {color: COLOR.blue}]}>
                     {item.notification.length > 18
                       ? item.notification.substring(0, 18).toUpperCase() + '...'
                       : item.notification}
                   </Text>
-                  <Text style={styles.classInchargeText}>
+                  <Text style={styles.descriptionText}>
                     {item.date
                       ? item.date.toDate().toDateString().toUpperCase()
                       : ''}
@@ -212,7 +212,7 @@ const TeacherHome = ({route}) => {
             }}>
             <Text style={styles.heading}>EVENTS</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('StudentNotification')}>
+              onPress={() => navigation.navigate('StudentEvent')}>
               <Text
                 style={[
                   styles.classInchargeText,
@@ -229,23 +229,11 @@ const TeacherHome = ({route}) => {
               data={eventsData}
               keyExtractor={item => item.id}
               renderItem={({item}) => (
-                // <TouchableOpacity
-                //   style={[styles.timetableItem, {flexDirection: 'row'}]}
-                //   onPress={() =>
-                //     navigation.navigate('NotificationViewScreen', {data: item})
-                //   }>
-                //   <Text style={[styles.classInchargeText, {color: COLOR.blue}]}>
-                //     {item.notification.length > 18
-                //       ? item.notification.substring(0, 18).toUpperCase() + '...'
-                //       : item.notification}
-                //   </Text>
-                //   <Text style={styles.classInchargeText}>
-                //     {item.date
-                //       ? item.date.toDate().toDateString().toUpperCase()
-                //       : ''}
-                //   </Text>
-                // </TouchableOpacity>
-                <TouchableOpacity style={styles.eventItem}>
+                <TouchableOpacity
+                  style={styles.eventItem}
+                  onPress={() =>
+                    navigation.navigate('EventViewScreen', {data: item})
+                  }>
                   <Image source={{uri: item.image}} style={styles.eventImage} />
                   <Text style={styles.eventTitle}>
                     {item.title.toUpperCase()}
@@ -326,6 +314,11 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)', // Shadow color
     textShadowOffset: {width: 2, height: 2}, // Shadow offset
     textShadowRadius: 5, // Shadow blur radius
+  },
+  descriptionText: {
+    color: COLOR.lightBlue,
+    fontFamily: 'times new roman',
+    fontSize: 12,
   },
   timetableItem: {
     height: 50,

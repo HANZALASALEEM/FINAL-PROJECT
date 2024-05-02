@@ -10,6 +10,8 @@ import TeacherLoginScreen from '../screens/loginScreens/TeacherLoginScreen';
 import TeacherBottomNavigator from './TeacherBottomNavigator';
 import StudentNotification from '../screens/studentBottomTabs/StudentNotification';
 import NotificationViewScreen from '../screens/NotificationViewScreen';
+import StudentEvent from '../screens/studentBottomTabs/StudentEvent';
+import EventViewScreen from '../screens/EventViewScreen';
 
 const Stack = createStackNavigator();
 
@@ -57,8 +59,18 @@ const AppNavigator = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="StudentEvent"
+        component={StudentEvent}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="NotificationViewScreen"
         component={NotificationViewScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EventViewScreen"
+        component={EventViewScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

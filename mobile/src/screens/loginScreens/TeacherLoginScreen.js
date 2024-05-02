@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import COLOR from '../../assets/color/Color';
@@ -29,9 +30,7 @@ const TeacherLoginScreen = () => {
 
   const signIn = async () => {
     try {
-      console.log('Sign In');
-      console.log(email);
-      console.log(password);
+      ToastAndroid.show('Please wait for a while!', ToastAndroid.LONG);
       const q = query(
         collection(db, 'Employee'),
         where('email', '==', email),
@@ -44,13 +43,11 @@ const TeacherLoginScreen = () => {
         employee.push({id: doc.id, ...doc.data()});
       });
       setEmployeeData(employee);
-      console.log(employeeData);
       // Check if any employee found
       if (employee.length > 0) {
         // Navigate to the other screen and pass data
+
         navigation.navigate('TeacherBottomNavigator', {data: employee[0]});
-        console.log(employee[0]);
-        console.log('employee length is working');
       } else {
         Alert.alert(
           'Try Again',

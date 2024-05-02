@@ -14,7 +14,7 @@ const NotificationViewScreen = ({route}) => {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
-        title={'NOTIFICATION'}
+        title={'NOTIFICATION DETAIL'}
         leftIcon={require('../assets/icons/left-arrow.png')}
         onPressLeftIcon={() => navigation.goBack()}
       />

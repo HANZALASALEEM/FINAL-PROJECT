@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StatusBar,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {collection, query, orderBy, getDocs} from 'firebase/firestore';
@@ -18,38 +19,34 @@ import {
 import COLOR from '../../assets/color/Color';
 import Navbar from '../../components/Navbar';
 
-const StudentNotification = () => {
+const StudentEvent = () => {
   const navigation = useNavigation();
-  const [updatesData, setUpdatesData] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
 
   useEffect(() => {
-    const getUpdates = async () => {
+    const getEvents = async () => {
       try {
-        const q = query(
-          collection(db, 'Notification'),
-          orderBy('date', 'desc'),
-        );
+        const q = query(collection(db, 'Event'), orderBy('date', 'desc'));
         const querySnapshot = await getDocs(q);
-        const notification = [];
+        const event = [];
         querySnapshot.forEach(doc => {
-          notification.push({id: doc.id, ...doc.data()});
+          event.push({id: doc.id, ...doc.data()});
         });
-        setUpdatesData(notification);
+        setEventsData(event);
       } catch (error) {
         console.error('Error fetching updates:', error);
       } finally {
         setLoading(false); // Set loading to false after fetching data
       }
     };
-    getUpdates();
+    getEvents();
   }, []);
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
-        title={'NOTIFICATIONS'}
+        title={'EVENTS'}
         leftIcon={require('../../assets/icons/menu.png')}
         rightIcon={require('../../assets/images/suffah-mono.png')}
       />
@@ -60,23 +57,20 @@ const StudentNotification = () => {
           <ActivityIndicator size="large" color={COLOR.blue} />
         ) : (
           <FlatList
-            data={updatesData}
+            data={eventsData}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
-                style={[styles.notificationItem, {flexDirection: 'row'}]}
+                style={styles.eventItem}
                 onPress={() =>
-                  navigation.navigate('NotificationViewScreen', {data: item})
+                  navigation.navigate('EventViewScreen', {data: item})
                 }>
-                <Text style={[styles.text, {color: COLOR.blue}]}>
-                  {item.notification.length > 18
-                    ? item.notification.substring(0, 18).toUpperCase() + '...'
-                    : item.notification.toUpperCase()}
+                <Image source={{uri: item.image}} style={styles.eventImage} />
+                <Text style={styles.eventTitle}>
+                  {item.title.toUpperCase()}
                 </Text>
-                <Text style={styles.text}>
-                  {item.date
-                    ? item.date.toDate().toDateString().toUpperCase()
-                    : ''}
+                <Text style={styles.eventDate}>
+                  {item.date.toDate().toDateString().toUpperCase()}
                 </Text>
               </TouchableOpacity>
             )}
@@ -86,6 +80,8 @@ const StudentNotification = () => {
     </View>
   );
 };
+
+export default StudentEvent;
 
 const styles = StyleSheet.create({
   container: {
@@ -97,31 +93,40 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  notificationItem: {
-    height: 50,
-    width: '95%',
+  eventItem: {
+    height: hp('20%'),
+    width: wp('90%'),
     borderRadius: 10,
-    shadowColor: COLOR.black,
+    marginTop: 10,
+    shadowColor: COLOR.black, // Shadow color
     shadowOffset: {
-      width: 0,
+      width: 2,
       height: 2,
     },
-    shadowOpacity: 1,
-    shadowRadius: 3,
+    shadowOpacity: 0.6, // Shadow opacity (0 to 1)
+    shadowRadius: 3, // Shadow blur radius
     elevation: 5,
-    backgroundColor: COLOR.white,
     alignSelf: 'center',
-    marginVertical: 5,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingHorizontal: 5,
   },
-  text: {
+  eventImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  },
+  eventTitle: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    color: COLOR.blue,
+    fontFamily: 'times new roman',
+    fontSize: 18,
+  },
+  eventDate: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
     color: COLOR.lightBlue,
     fontFamily: 'times new roman',
-    fontSize: 12,
+    fontSize: 14,
   },
 });
-
-export default StudentNotification;
