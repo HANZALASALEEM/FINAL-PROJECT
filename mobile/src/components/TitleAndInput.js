@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: COLOR.white,
     borderRadius: 15,
-    borderColor: '#bfbfbf',
+    borderColor: COLOR.gray,
     shadowColor: COLOR.lightBlue, // Shadow color
     shadowOffset: {
       width: 2,

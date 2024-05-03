@@ -12,6 +12,9 @@ import StudentNotification from '../screens/studentBottomTabs/StudentNotificatio
 import NotificationViewScreen from '../screens/NotificationViewScreen';
 import StudentEvent from '../screens/studentBottomTabs/StudentEvent';
 import EventViewScreen from '../screens/EventViewScreen';
+import HomeworkScreen from '../screens/teacherBottomTabs/extraScreens/HomeworkScreen';
+import TestReportScreen from '../screens/teacherBottomTabs/extraScreens/TestReportScreen';
+import StudyStatusScreen from '../screens/teacherBottomTabs/extraScreens/StudyStatusScreen';
 
 const Stack = createStackNavigator();
 
@@ -71,6 +74,21 @@ const AppNavigator = () => {
       <Stack.Screen
         name="EventViewScreen"
         component={EventViewScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="HomeworkScreen"
+        component={HomeworkScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="TestReportScreen"
+        component={TestReportScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StudyStatusScreen"
+        component={StudyStatusScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

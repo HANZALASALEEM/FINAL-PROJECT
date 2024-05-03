@@ -11,7 +11,14 @@ import React, {useEffect, useState} from 'react';
 import COLOR from '../../assets/color/Color';
 import Navbar from '../../components/Navbar';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {query, collection, where, getDocs} from 'firebase/firestore';
+import {
+  query,
+  collection,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+} from 'firebase/firestore';
 import {db} from '../../firebase/firebase.config';
 import {
   heightPercentageToDP as hp,
@@ -21,10 +28,6 @@ import TitleAndInput from '../../components/TitleAndInput';
 import SubmitButton from '../../components/SubmitButton';
 import {FlatList} from 'react-native-gesture-handler';
 const TeacherAttendance = () => {
-  useEffect(() => {
-    console.log('Updated studentData:', studentData);
-  }, [studentData]);
-
   const [className, setClassName] = useState(null);
   const [date, setDate] = useState(null);
   const [studentData, setStudentData] = useState([]);
@@ -33,6 +36,13 @@ const TeacherAttendance = () => {
   const [items, setItems] = useState([
     {label: 'Nursery', value: 'Nursery'},
     {label: 'KG', value: 'KG'},
+    {label: '1', value: '1'},
+    {label: '2', value: '2'},
+    {label: '3', value: '3'},
+    {label: '4', value: '4'},
+    {label: '5', value: '5'},
+    {label: '6', value: '6'},
+    {label: '7', value: '7'},
   ]);
   const [loading, setLoading] = useState(false);
   const [present, setPresent] = useState(0);
@@ -58,6 +68,39 @@ const TeacherAttendance = () => {
 
     console.log(studentData);
     console.log('getStudent work done');
+  };
+
+  const submitAttendance = async item => {
+    if (!date) {
+      // Show an alert to enter the date if it's not available
+      Alert.alert('Please enter the date');
+      return; // Exit the function if date is not available
+    }
+    const month_year = date.slice(-6);
+    try {
+      const attendanceCollectionRef = collection(db, 'Attendance');
+
+      // Use setDoc to update or create a document with a specific rollNo
+      const attendanceRef = doc(
+        attendanceCollectionRef,
+        month_year,
+        className,
+        date,
+      );
+      const studentAttendanceData = {
+        name: item.name,
+        date: date,
+        present: present,
+      };
+      await setDoc(attendanceRef, studentAttendanceData);
+
+      console.log(
+        'Document updated/added with rollNo: ',
+        newStudentData.studentCNIC,
+      );
+    } catch (error) {
+      console.error('Error saving document: ', error);
+    }
   };
 
   return (
@@ -122,19 +165,27 @@ const TeacherAttendance = () => {
           <FlatList
             data={studentData}
             keyExtractor={item => item.id}
-            renderItem={({item}) => (
+            renderItem={({item, index}) => (
               <View style={styles.flatlistEachContainer}>
                 <Text style={{width: '50%', color: COLOR.black}}>
                   {item.name}
                 </Text>
                 <View style={styles.radioButtonContainer}>
                   <TouchableOpacity
-                    onPress={() => {
-                      setPresent(1);
+                    onPress={item => {
+                      // setPresent(1);
+
+                      // Create a copy of studentData
+                      const updatedStudentData = [...studentData];
+                      // Update the present status for the current item
+                      updatedStudentData[index].present = 1;
+                      // Set the updated studentData
+                      setStudentData(updatedStudentData);
+                      submitAttendance(item);
                     }}>
                     <Image
                       source={
-                        present == 1
+                        item.present == 1
                           ? require('../../assets/icons/radio-green-fill.png')
                           : require('../../assets/icons/radio-green-outline.png')
                       }
@@ -145,11 +196,18 @@ const TeacherAttendance = () => {
                 <View style={styles.radioButtonContainer}>
                   <TouchableOpacity
                     onPress={() => {
-                      setPresent(-1);
+                      //setPresent(-1);
+
+                      // Create a copy of studentData
+                      const updatedStudentData = [...studentData];
+                      // Update the present status for the current item
+                      updatedStudentData[index].present = -1;
+                      // Set the updated studentData
+                      setStudentData(updatedStudentData);
                     }}>
                     <Image
                       source={
-                        present == -1
+                        item.present == -1
                           ? require('../../assets/icons/radio-red-fill.png')
                           : require('../../assets/icons/radio-red-outline.png')
                       }
