@@ -31,22 +31,24 @@ const TeacherLoginScreen = () => {
   const signIn = async () => {
     try {
       ToastAndroid.show('Please wait for a while!', ToastAndroid.LONG);
+
       const q = query(
         collection(db, 'Employee'),
         where('email', '==', email),
         where('employeeCNIC', '==', password),
         where('designation', '==', 'teacher'),
       );
+
       const querySnapshot = await getDocs(q);
       const employee = [];
       querySnapshot.forEach(doc => {
         employee.push({id: doc.id, ...doc.data()});
       });
+
       setEmployeeData(employee);
-      // Check if any employee found
+
       if (employee.length > 0) {
         // Navigate to the other screen and pass data
-
         navigation.navigate('TeacherBottomNavigator', {data: employee[0]});
       } else {
         Alert.alert(
@@ -56,8 +58,8 @@ const TeacherLoginScreen = () => {
       }
     } catch (error) {
       console.error('Sign In Error:', error);
-      // Check if the error is a network error
-      if (error.code === 'unavailable') {
+
+      if (error.message.includes('Network')) {
         Alert.alert(
           'Network Error',
           'Unable to connect to the server. Please check your internet connection.',

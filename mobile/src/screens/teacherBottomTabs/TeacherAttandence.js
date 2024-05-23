@@ -6,6 +6,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import COLOR from '../../assets/color/Color';
@@ -26,13 +28,15 @@ import {
 } from 'react-native-responsive-screen';
 import TitleAndInput from '../../components/TitleAndInput';
 import SubmitButton from '../../components/SubmitButton';
-import {FlatList} from 'react-native-gesture-handler';
+import {Calendar} from 'react-native-calendars';
+
 const TeacherAttendance = () => {
   const [className, setClassName] = useState(null);
   const [date, setDate] = useState(null);
   const [studentData, setStudentData] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
+  const month_year = date.slice(0, 7);
   const [items, setItems] = useState([
     {label: 'Nursery', value: 'Nursery'},
     {label: 'KG', value: 'KG'},
@@ -48,6 +52,8 @@ const TeacherAttendance = () => {
   const [present, setPresent] = useState(0);
 
   const getStudent = async () => {
+    console.log(date);
+    console.log(month_year);
     setLoading(true);
     try {
       const q = query(
@@ -76,7 +82,7 @@ const TeacherAttendance = () => {
       Alert.alert('Please enter the date');
       return; // Exit the function if date is not available
     }
-    const month_year = date.slice(-6);
+
     try {
       const attendanceCollectionRef = collection(db, 'Attendance');
 
@@ -111,115 +117,129 @@ const TeacherAttendance = () => {
         leftIcon={require('../../assets/icons/menu.png')}
         rightIcon={require('../../assets/images/suffah-mono.png')}
       />
-      <View>
-        <TitleAndInput
+      <ScrollView>
+        <View>
+          {/* <TitleAndInput
           title={'DATE'}
           icon={require('../../assets/icons/calendar.png')}
           placeholder={'eg: 27-3-2024'}
           onChangeText={text => setDate(text)}
-        />
-      </View>
-      <DropDownPicker
-        items={items} // Pass the items array
-        value={value}
-        //defaultValue={className}
-        setValue={setValue}
-        setItems={setItems}
-        theme="LIGHT"
-        open={open}
-        setOpen={setOpen}
-        placeholder="Select Class"
-        containerStyle={{
-          height: 50,
-          width: wp('90%'),
-          alignSelf: 'center',
-          marginTop: 10,
-        }}
-        dropDownContainerStyle={{
-          backgroundColor: COLOR.white,
-          borderWidth: 0.3,
-        }}
-        style={{backgroundColor: COLOR.white, borderWidth: 0.3}}
-        itemStyle={{
-          justifyContent: 'flex-start',
-        }}
-        onSelectItem={item => {
-          setClassName(item.value);
-        }}
-      />
-      {/* 10% for Get Student Button Container */}
-      <View style={styles.buttonContainer}>
-        <SubmitButton title={'GET STUDENT'} onPress={() => getStudent()} />
-      </View>
-      <View style={styles.playgroundContainer}>
-        <View style={styles.infoBar}>
-          <Text style={{width: '50%', color: COLOR.black}}>STUDENT NAME</Text>
-          <Text style={{width: '25%', color: 'green'}}>PRESENT</Text>
-          <Text style={{width: '25%', color: 'red'}}>ABSENT</Text>
-        </View>
-
-        {/* Show activity indicator while loading */}
-        {loading ? (
-          <ActivityIndicator size="large" color={COLOR.blue} />
-        ) : (
-          <FlatList
-            data={studentData}
-            keyExtractor={item => item.id}
-            renderItem={({item, index}) => (
-              <View style={styles.flatlistEachContainer}>
-                <Text style={{width: '50%', color: COLOR.black}}>
-                  {item.name}
-                </Text>
-                <View style={styles.radioButtonContainer}>
-                  <TouchableOpacity
-                    onPress={item => {
-                      // setPresent(1);
-
-                      // Create a copy of studentData
-                      const updatedStudentData = [...studentData];
-                      // Update the present status for the current item
-                      updatedStudentData[index].present = 1;
-                      // Set the updated studentData
-                      setStudentData(updatedStudentData);
-                      submitAttendance(item);
-                    }}>
-                    <Image
-                      source={
-                        item.present == 1
-                          ? require('../../assets/icons/radio-green-fill.png')
-                          : require('../../assets/icons/radio-green-outline.png')
-                      }
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.radioButtonContainer}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      //setPresent(-1);
-
-                      // Create a copy of studentData
-                      const updatedStudentData = [...studentData];
-                      // Update the present status for the current item
-                      updatedStudentData[index].present = -1;
-                      // Set the updated studentData
-                      setStudentData(updatedStudentData);
-                    }}>
-                    <Image
-                      source={
-                        item.present == -1
-                          ? require('../../assets/icons/radio-red-fill.png')
-                          : require('../../assets/icons/radio-red-outline.png')
-                      }
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
+        /> */}
+          <Calendar
+            onDayPress={day => {
+              setDate(day.dateString);
+            }}
+            markedDates={{
+              [date]: {
+                selected: true,
+                disableTouchEvent: true,
+                selectedDotColor: '#6e6a63',
+              },
+            }}
           />
-        )}
-      </View>
+        </View>
+        <DropDownPicker
+          items={items} // Pass the items array
+          value={value}
+          //defaultValue={className}
+          setValue={setValue}
+          setItems={setItems}
+          theme="LIGHT"
+          open={open}
+          setOpen={setOpen}
+          placeholder="Select Class"
+          containerStyle={{
+            height: 50,
+            width: wp('90%'),
+            alignSelf: 'center',
+            marginTop: 10,
+          }}
+          dropDownContainerStyle={{
+            backgroundColor: COLOR.white,
+            borderWidth: 0.3,
+          }}
+          style={{backgroundColor: COLOR.white, borderWidth: 0.3}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          onSelectItem={item => {
+            setClassName(item.value);
+          }}
+        />
+        {/* 10% for Get Student Button Container */}
+        <View style={styles.buttonContainer}>
+          <SubmitButton title={'GET STUDENT'} onPress={() => getStudent()} />
+        </View>
+        <View style={styles.playgroundContainer}>
+          <View style={styles.infoBar}>
+            <Text style={{width: '50%', color: COLOR.black}}>STUDENT NAME</Text>
+            <Text style={{width: '25%', color: 'green'}}>PRESENT</Text>
+            <Text style={{width: '25%', color: 'red'}}>ABSENT</Text>
+          </View>
+
+          {/* Show activity indicator while loading */}
+          {loading ? (
+            <ActivityIndicator size="large" color={COLOR.blue} />
+          ) : (
+            <FlatList
+              data={studentData}
+              keyExtractor={item => item.id}
+              renderItem={({item, index}) => (
+                <View style={styles.flatlistEachContainer}>
+                  <Text style={{width: '50%', color: COLOR.black}}>
+                    {item.name}
+                  </Text>
+                  <View style={styles.radioButtonContainer}>
+                    <TouchableOpacity
+                      onPress={item => {
+                        // setPresent(1);
+
+                        // Create a copy of studentData
+                        const updatedStudentData = [...studentData];
+                        // Update the present status for the current item
+                        updatedStudentData[index].present = 1;
+                        // Set the updated studentData
+                        setStudentData(updatedStudentData);
+                        submitAttendance(item);
+                      }}>
+                      <Image
+                        source={
+                          item.present == 1
+                            ? require('../../assets/icons/radio-green-fill.png')
+                            : require('../../assets/icons/radio-green-outline.png')
+                        }
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.radioButtonContainer}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        //setPresent(-1);
+
+                        // Create a copy of studentData
+                        const updatedStudentData = [...studentData];
+                        // Update the present status for the current item
+                        updatedStudentData[index].present = -1;
+                        // Set the updated studentData
+                        setStudentData(updatedStudentData);
+                      }}>
+                      <Image
+                        source={
+                          item.present == -1
+                            ? require('../../assets/icons/radio-red-fill.png')
+                            : require('../../assets/icons/radio-red-outline.png')
+                        }
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            />
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };
