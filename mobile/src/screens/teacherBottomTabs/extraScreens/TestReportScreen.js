@@ -150,6 +150,13 @@ const TestReportScreen = () => {
             onDayPress={day => {
               setDate(day.dateString);
             }}
+            markedDates={{
+              [date]: {
+                selected: true,
+                disableTouchEvent: true,
+                selectedDotColor: '#6e6a63',
+              },
+            }}
           />
         </View>
         <DropDownPicker
