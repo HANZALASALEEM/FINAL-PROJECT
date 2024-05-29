@@ -2,6 +2,22 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/NotoNastaliqUrdu-Bold.ttf",
+      "sha1": "db268cd0e4ef29f66fa1236f70578e5edd5e2bcc"
+    },
+    {
+      "path": "src/assets/fonts/NotoNastaliqUrdu-Medium.ttf",
+      "sha1": "fc7e9cb346e653d14e11bc0304cee401525ed269"
+    },
+    {
+      "path": "src/assets/fonts/NotoNastaliqUrdu-Regular.ttf",
+      "sha1": "9fc7cd62610ef380653a2f343df669d5b31a1ee4"
+    },
+    {
+      "path": "src/assets/fonts/NotoNastaliqUrdu-SemiBold.ttf",
+      "sha1": "a4f470e6e2584959bd12803103fe5a2eafaf565c"
+    },
+    {
       "path": "src/assets/fonts/times new roman bold italic.ttf",
       "sha1": "a999c4760db515679f6a31756d2ee6ab5f745ecf"
     },

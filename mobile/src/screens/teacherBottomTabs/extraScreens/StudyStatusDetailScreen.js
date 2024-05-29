@@ -72,7 +72,15 @@ const StudyStatusDetailScreen = ({route}) => {
           }}
         />
         <Text style={styles.heading}>STUDENT STUDY STATUS</Text>
-        <TextInput style={styles.input} multiline={true} />
+        <TextInput
+          style={styles.input}
+          multiline={true}
+          placeholder="Comment on the Student study status..."
+          placeholderTextColor="gray"
+        />
+        <View style={styles.button}>
+          <SubmitButton title={'SUBMIT'} />
+        </View>
       </ScrollView>
     </View>
   );
@@ -115,5 +123,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 10,
     textAlignVertical: 'top',
+  },
+  button: {
+    marginVertical: 10,
   },
 });
