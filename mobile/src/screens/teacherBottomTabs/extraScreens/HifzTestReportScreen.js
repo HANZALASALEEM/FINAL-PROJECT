@@ -33,7 +33,7 @@ import TitleAndInput from '../../../components/TitleAndInput';
 import SubmitButton from '../../../components/SubmitButton';
 import {useNavigation} from '@react-navigation/native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
-const TestReportScreen = () => {
+const HifzTestReportScreen = () => {
   const navigation = useNavigation();
 
   const [className, setClassName] = useState(null);
@@ -309,7 +309,7 @@ const TestReportScreen = () => {
   );
 };
 
-export default TestReportScreen;
+export default HifzTestReportScreen;
 
 const styles = StyleSheet.create({
   container: {

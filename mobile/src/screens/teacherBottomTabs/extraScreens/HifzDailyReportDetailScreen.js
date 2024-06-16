@@ -6,10 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Alert,
+  ToastAndroid,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from '../../../components/Navbar';
 import COLOR from '../../../assets/color/Color';
+import {collection, setDoc, doc} from 'firebase/firestore';
+import {db} from '../../../firebase/firebase.config';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -19,9 +23,65 @@ import SubmitButton from '../../../components/SubmitButton';
 const HifzDailyReportDetailScreen = ({route}) => {
   const navigation = useNavigation();
   const {data} = route.params;
+  const [date, setDate] = useState('');
   const [sabaqStatus, setSabaqStatus] = useState(0);
   const [sabaqiStatus, setSabaqiStatus] = useState(0);
   const [manzilStatus, setManzilStatus] = useState(0);
+  const [sabaqLines, setSabaqLines] = useState(0);
+  const [sabaqiParaNumber, setSabaqiParaNumber] = useState(0);
+  const [manzilParaNumber, setManzilParaNumber] = useState(0);
+
+  const month_year = date.slice(0, 7);
+  useEffect(() => {
+    const getCurrentDate = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1 and pad single digit months with a leading zero
+      const day = String(date.getDate()).padStart(2, '0'); // Pad single digit days with a leading zero
+      return `${year}-${month}-${day}`;
+    };
+
+    setDate(getCurrentDate());
+  }, []);
+
+  const submitButton = async () => {
+    if (!date) {
+      // Show an alert to enter the date if it's not available
+      Alert.alert('Attention', 'Please enter the Date first!');
+      return; // Exit the function if date is not available
+    }
+
+    try {
+      const dailyReportCollectionRef = collection(
+        db,
+        'Student',
+        data.studentCNIC,
+        'dailyReport',
+      );
+
+      const dailyReportDocRef = doc(dailyReportCollectionRef, `${date}`);
+
+      const dailyReportData = {
+        date: date,
+        month: month_year,
+        sabaqLines: sabaqLines,
+        sabaqStatus: sabaqStatus,
+        sabaqiParaNumber: sabaqiParaNumber,
+        sabaqiStatus: sabaqiStatus,
+        manzilParaNumber: manzilParaNumber,
+        manzilStatus: manzilStatus,
+      };
+      await setDoc(dailyReportDocRef, dailyReportData);
+
+      ToastAndroid.show(
+        `Daily Report of ${data.name} has been saved`,
+        ToastAndroid.SHORT,
+      );
+    } catch (error) {
+      console.error('Error saving document: ', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
@@ -71,7 +131,9 @@ const HifzDailyReportDetailScreen = ({route}) => {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TextInput
             style={styles.input}
-            onChangeText={text => {}}
+            onChangeText={text => {
+              setSabaqLines(text);
+            }}
             keyboardType="numeric"
           />
           <Text style={[styles.title, {color: COLOR.blue, marginLeft: 5}]}>
@@ -125,7 +187,9 @@ const HifzDailyReportDetailScreen = ({route}) => {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TextInput
             style={styles.input}
-            onChangeText={text => {}}
+            onChangeText={text => {
+              setSabaqiParaNumber(text);
+            }}
             keyboardType="numeric"
           />
           <Text style={[styles.title, {color: COLOR.blue, marginLeft: 5}]}>
@@ -179,7 +243,9 @@ const HifzDailyReportDetailScreen = ({route}) => {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TextInput
             style={styles.input}
-            onChangeText={text => {}}
+            onChangeText={text => {
+              setManzilParaNumber(text);
+            }}
             keyboardType="numeric"
           />
           <Text style={[styles.title, {color: COLOR.blue, marginLeft: 5}]}>
@@ -199,7 +265,7 @@ const HifzDailyReportDetailScreen = ({route}) => {
           منزل
         </Text>
       </View>
-      <SubmitButton title={'SUBMIT'} />
+      <SubmitButton title={'SUBMIT'} onPress={submitButton} />
     </View>
   );
 };

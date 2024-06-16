@@ -18,6 +18,7 @@ import StudyStatusScreen from '../screens/teacherBottomTabs/extraScreens/StudySt
 import StudyStatusDetailScreen from '../screens/teacherBottomTabs/extraScreens/StudyStatusDetailScreen';
 import HifzDailyReportScreen from '../screens/teacherBottomTabs/extraScreens/HifzDailyReportScreen';
 import HifzDailyReportDetailScreen from '../screens/teacherBottomTabs/extraScreens/HifzDailyReportDetailScreen';
+import HifzTestReportScreen from '../screens/teacherBottomTabs/extraScreens/HifzTestReportScreen';
 
 const Stack = createStackNavigator();
 
@@ -107,6 +108,11 @@ const AppNavigator = () => {
       <Stack.Screen
         name="HifzDailyReportDetailScreen"
         component={HifzDailyReportDetailScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="HifzTestReportScreen"
+        component={HifzTestReportScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

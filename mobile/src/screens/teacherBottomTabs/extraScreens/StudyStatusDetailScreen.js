@@ -9,19 +9,13 @@ import {
   FlatList,
   TextInput,
   ScrollView,
+  Alert,
+  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import COLOR from '../../../assets/color/Color';
 import Navbar from '../../../components/Navbar';
-import DropDownPicker from 'react-native-dropdown-picker';
-import {
-  query,
-  collection,
-  where,
-  getDocs,
-  setDoc,
-  doc,
-} from 'firebase/firestore';
+import {collection, setDoc, doc} from 'firebase/firestore';
 import {db} from '../../../firebase/firebase.config';
 import {
   heightPercentageToDP as hp,
@@ -34,16 +28,41 @@ import {Calendar, LocaleConfig} from 'react-native-calendars';
 const StudyStatusDetailScreen = ({route}) => {
   const navigation = useNavigation();
   const {data} = route.params;
-  const [className, setClassName] = useState(null);
   const [date, setDate] = useState(null);
-  const [studentData, setStudentData] = useState([]);
-  const [openClasses, setOpenClasses] = useState(false);
-  const [openSubject, setOpenSubject] = useState(false);
-  const [value, setValue] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [present, setPresent] = useState(0);
-  const [totalTestMarks, setTotalTestMarks] = useState(0);
-  const [subjectName, setSubjectName] = useState(null);
+  const [studyStatus, setStudyStatus] = useState(null);
+
+  const submitButton = async () => {
+    if (!date) {
+      // Show an alert to enter the date if it's not available
+      Alert.alert('Attention', 'Please enter the Date first!');
+      return; // Exit the function if date is not available
+    }
+
+    try {
+      const studyStatusCollectionRef = collection(
+        db,
+        'Student',
+        data.studentCNIC,
+        'studyStatus',
+      );
+
+      const studyStatusDocRef = doc(studyStatusCollectionRef, `${date}`);
+
+      const studyStatusData = {
+        date: date,
+        status: studyStatus,
+      };
+      await setDoc(studyStatusDocRef, studyStatusData);
+
+      ToastAndroid.show(
+        `Study Status of ${data.name} has been saved`,
+        ToastAndroid.SHORT,
+      );
+    } catch (error) {
+      console.error('Error saving document: ', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
@@ -77,9 +96,10 @@ const StudyStatusDetailScreen = ({route}) => {
           multiline={true}
           placeholder="Comment on the Student study status..."
           placeholderTextColor="gray"
+          onChangeText={text => setStudyStatus(text)}
         />
         <View style={styles.button}>
-          <SubmitButton title={'SUBMIT'} />
+          <SubmitButton title={'SUBMIT'} onPress={submitButton} />
         </View>
       </ScrollView>
     </View>

@@ -8,6 +8,8 @@ import {
   View,
   FlatList,
   ScrollView,
+  Alert,
+  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import COLOR from '../../assets/color/Color';
@@ -32,7 +34,7 @@ import {Calendar} from 'react-native-calendars';
 
 const TeacherAttendance = () => {
   const [className, setClassName] = useState(null);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState('');
   const [studentData, setStudentData] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -47,13 +49,14 @@ const TeacherAttendance = () => {
     {label: '5', value: '5'},
     {label: '6', value: '6'},
     {label: '7', value: '7'},
+    {label: '8', value: '8'},
+    {label: '9', value: '9'},
+    {label: '10', value: '10'},
   ]);
   const [loading, setLoading] = useState(false);
   const [present, setPresent] = useState(0);
 
   const getStudent = async () => {
-    console.log(date);
-    console.log(month_year);
     setLoading(true);
     try {
       const q = query(
@@ -79,30 +82,33 @@ const TeacherAttendance = () => {
   const submitAttendance = async item => {
     if (!date) {
       // Show an alert to enter the date if it's not available
-      Alert.alert('Please enter the date');
+      Alert.alert('Attention', 'Please enter the date first!');
       return; // Exit the function if date is not available
     }
 
     try {
-      const attendanceCollectionRef = collection(db, 'Attendance');
-
-      // Use setDoc to update or create a document with a specific rollNo
-      const attendanceRef = doc(
-        attendanceCollectionRef,
-        month_year,
+      const attendanceCollectionRef = collection(
+        db,
+        'Attendance',
         className,
-        date,
+        month_year,
       );
+
+      const attendanceDocRef = doc(
+        attendanceCollectionRef,
+        `${item.name}_${date}`,
+      );
+
       const studentAttendanceData = {
         name: item.name,
         date: date,
-        present: present,
+        present: item.present,
       };
-      await setDoc(attendanceRef, studentAttendanceData);
+      await setDoc(attendanceDocRef, studentAttendanceData);
 
-      console.log(
-        'Document updated/added with rollNo: ',
-        newStudentData.studentCNIC,
+      ToastAndroid.show(
+        `Attendance of ${item.name} has been saved`,
+        ToastAndroid.SHORT,
       );
     } catch (error) {
       console.error('Error saving document: ', error);
@@ -119,12 +125,6 @@ const TeacherAttendance = () => {
       />
       <ScrollView>
         <View>
-          {/* <TitleAndInput
-          title={'DATE'}
-          icon={require('../../assets/icons/calendar.png')}
-          placeholder={'eg: 27-3-2024'}
-          onChangeText={text => setDate(text)}
-        /> */}
           <Calendar
             onDayPress={day => {
               setDate(day.dateString);
@@ -178,10 +178,12 @@ const TeacherAttendance = () => {
           </View>
 
           {/* Show activity indicator while loading */}
+
           {loading ? (
             <ActivityIndicator size="large" color={COLOR.blue} />
           ) : (
             <FlatList
+              style={{marginBottom: 10}}
               data={studentData}
               keyExtractor={item => item.id}
               renderItem={({item, index}) => (
@@ -192,15 +194,15 @@ const TeacherAttendance = () => {
                   <View style={styles.radioButtonContainer}>
                     <TouchableOpacity
                       onPress={item => {
-                        // setPresent(1);
-
                         // Create a copy of studentData
                         const updatedStudentData = [...studentData];
                         // Update the present status for the current item
                         updatedStudentData[index].present = 1;
                         // Set the updated studentData
+
                         setStudentData(updatedStudentData);
-                        submitAttendance(item);
+
+                        submitAttendance(updatedStudentData[index]);
                       }}>
                       <Image
                         source={
@@ -215,14 +217,15 @@ const TeacherAttendance = () => {
                   <View style={styles.radioButtonContainer}>
                     <TouchableOpacity
                       onPress={() => {
-                        //setPresent(-1);
-
                         // Create a copy of studentData
                         const updatedStudentData = [...studentData];
                         // Update the present status for the current item
                         updatedStudentData[index].present = -1;
                         // Set the updated studentData
+
                         setStudentData(updatedStudentData);
+
+                        submitAttendance(updatedStudentData[index]);
                       }}>
                       <Image
                         source={
@@ -266,7 +269,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: wp('100%'),
-    backgroundColor: '#c1c1c1',
+    backgroundColor: '#e9e9e9',
     alignItems: 'center',
     paddingHorizontal: 10,
   },
@@ -274,9 +277,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: wp('100%'),
-    backgroundColor: '#ffa9a9',
     alignItems: 'center',
     paddingHorizontal: 10,
+    borderBottomWidth: 0.3,
   },
   radioButtonContainer: {
     width: '25%',

@@ -60,7 +60,7 @@ const TeacherHifz = () => {
           <TouchableOpacity
             style={styles.optionButton}
             onPress={() => {
-              navigation.navigate('TestReportScreen');
+              navigation.navigate('HifzTestReportScreen');
             }}>
             <View style={styles.optionButtonIconContainer}>
               <Image
