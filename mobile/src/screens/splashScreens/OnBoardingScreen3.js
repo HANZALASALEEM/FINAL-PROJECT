@@ -1,5 +1,6 @@
 import {
   Image,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -19,30 +20,32 @@ const OnBoardingScreen3 = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#ffffff" />
-      {/* 10% height of Skip Button */}
-      <View style={styles.skipButtonContainer}>
-        {/* <TouchableOpacity style={styles.skipButton}>
+      <ScrollView>
+        {/* 10% height of Skip Button */}
+        <View style={styles.skipButtonContainer}>
+          {/* <TouchableOpacity style={styles.skipButton}>
             <Text style={styles.skipButtonTitle}>SKIP</Text>
           </TouchableOpacity> */}
-      </View>
-      {/* 50% height of Image Container */}
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/onBoarding3.png')}
-        />
-      </View>
-      {/* 10% height of Heading */}
-      <View style={styles.headingContainer}>
-        <Text style={styles.heading}>STAY UP-TO-DATE</Text>
-      </View>
-      {/* 10% height of Forword Button */}
-      <View style={styles.forwordButtonContainer}>
-        <ForwordButton
-          title={'GET STARTED'}
-          onPressButton={() => navigation.navigate('WhoAreYouScreen')}
-        />
-      </View>
+        </View>
+        {/* 50% height of Image Container */}
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/onBoarding3.png')}
+          />
+        </View>
+        {/* 10% height of Heading */}
+        <View style={styles.headingContainer}>
+          <Text style={styles.heading}>STAY UP-TO-DATE</Text>
+        </View>
+        {/* 10% height of Forword Button */}
+        <View style={styles.forwordButtonContainer}>
+          <ForwordButton
+            title={'GET STARTED'}
+            onPressButton={() => navigation.navigate('WhoAreYouScreen')}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -53,6 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR.white,
+    alignSelf: 'center',
   },
   skipButtonContainer: {
     height: hp('10%'),

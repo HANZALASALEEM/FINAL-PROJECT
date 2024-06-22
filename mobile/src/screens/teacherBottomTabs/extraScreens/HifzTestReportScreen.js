@@ -49,30 +49,11 @@ const HifzTestReportScreen = () => {
   const [subjectName, setSubjectName] = useState(null);
   const month_year = date.slice(0, 7);
   const [classes, setClasses] = useState([
-    {label: 'Nursery', value: 'Nursery'},
-    {label: 'KG', value: 'KG'},
-    {label: '1', value: '1'},
-    {label: '2', value: '2'},
-    {label: '3', value: '3'},
-    {label: '4', value: '4'},
-    {label: '5', value: '5'},
-    {label: '6', value: '6'},
-    {label: '7', value: '7'},
-    {label: '8', value: '8'},
-    {label: '9', value: '9'},
-    {label: '10', value: '10'},
-  ]);
-
-  const [subjects, setSubjects] = useState([
-    {label: 'Physics', value: 'Physics'},
-    {label: 'Chemistry', value: 'Chemistry'},
-    {label: 'Computer', value: 'Computer'},
-    {label: 'Math', value: 'Math'},
-    {label: 'English', value: 'English'},
-    {label: 'Urdu', value: 'Urdu'},
-    {label: 'Islamiyat', value: 'Islamiyat'},
-    {label: 'Pak Studies', value: 'Pak Studies'},
-    {label: 'Biology', value: 'Biology'},
+    {label: 'مصعب بن عمیر', value: 'مصعب بن عمیر'},
+    {label: 'عثمان بن عفان', value: 'عثمان بن عفان'},
+    {label: 'ابوبکر صدیق', value: 'ابوبکر صدیق'},
+    {label: 'عمر بن خطاب', value: 'عمر بن خطاب'},
+    {label: 'علی بن طالب', value: 'علی بن طالب'},
   ]);
 
   useEffect(() => {
@@ -102,36 +83,29 @@ const HifzTestReportScreen = () => {
   }, [className]);
 
   const submitTestReport = async item => {
-    if (!date || !subjectName || !totalTestMarks) {
+    if (!date || !totalTestMarks) {
       // Show an alert to enter the date if it's not available
-      Alert.alert(
-        'Attention',
-        'Please enter the Date , Subject and Total marks first!',
-      );
+      Alert.alert('Attention', 'Please enter the Date and Total marks first!');
       return; // Exit the function if date is not available
     }
 
     try {
       const testReportCollectionRef = collection(
         db,
+        'Student',
+        item.studentCNIC,
         'TestReport',
-        className,
-        month_year,
       );
 
-      const testReportDocRef = doc(
-        testReportCollectionRef,
-        `${item.name}_${date}`,
-      );
+      const testReportDocRef = doc(testReportCollectionRef, `${date}`);
 
-      const studentTestData = {
+      const studentTestReportData = {
         name: item.name,
         date: date,
         obtainMarks: item.obtainMarks,
-        subject: subjectName,
         totalMarks: totalTestMarks,
       };
-      await setDoc(testReportDocRef, studentTestData);
+      await setDoc(testReportDocRef, studentTestReportData);
 
       ToastAndroid.show(
         `Test Marks of ${item.name} has been saved`,
@@ -186,34 +160,7 @@ const HifzTestReportScreen = () => {
           setClassName(item.value);
         }}
       />
-      <DropDownPicker
-        items={subjects} // Pass the items array
-        value={subjectName}
-        //defaultValue={className}
-        setValue={setValue}
-        setItems={setSubjects}
-        theme="LIGHT"
-        open={openSubject}
-        setOpen={setOpenSubject}
-        placeholder="Select Subject"
-        containerStyle={{
-          height: 50,
-          width: wp('90%'),
-          alignSelf: 'center',
-          marginTop: 10,
-        }}
-        dropDownContainerStyle={{
-          backgroundColor: COLOR.white,
-          borderWidth: 0.3,
-        }}
-        style={{backgroundColor: COLOR.white, borderWidth: 0.3}}
-        itemStyle={{
-          justifyContent: 'flex-start',
-        }}
-        onSelectItem={item => {
-          setSubjectName(item.value);
-        }}
-      />
+
       <ScrollView>
         <View>
           <Calendar

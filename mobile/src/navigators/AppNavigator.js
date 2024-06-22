@@ -19,6 +19,10 @@ import StudyStatusDetailScreen from '../screens/teacherBottomTabs/extraScreens/S
 import HifzDailyReportScreen from '../screens/teacherBottomTabs/extraScreens/HifzDailyReportScreen';
 import HifzDailyReportDetailScreen from '../screens/teacherBottomTabs/extraScreens/HifzDailyReportDetailScreen';
 import HifzTestReportScreen from '../screens/teacherBottomTabs/extraScreens/HifzTestReportScreen';
+import StudentLoginScreen from '../screens/loginScreens/StudentLoginScreen';
+import StudentBottomNavigator from './StudentBottomNavigator';
+import StudentAttendence from '../screens/studentBottomTabs/extraScreens/StudentAttendence';
+import StudentComplaint from '../screens/studentBottomTabs/extraScreens/StudentComplaint';
 
 const Stack = createStackNavigator();
 
@@ -113,6 +117,26 @@ const AppNavigator = () => {
       <Stack.Screen
         name="HifzTestReportScreen"
         component={HifzTestReportScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StudentLoginScreen"
+        component={StudentLoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StudentBottomNavigator"
+        component={StudentBottomNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StudentAttendence"
+        component={StudentAttendence}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StudentComplaint"
+        component={StudentComplaint}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

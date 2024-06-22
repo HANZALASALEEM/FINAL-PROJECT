@@ -40,6 +40,11 @@ const StudyStatusScreen = () => {
     {label: '8', value: '8'},
     {label: '9', value: '9'},
     {label: '10', value: '10'},
+    {label: 'مصعب بن عمیر', value: 'مصعب بن عمیر'},
+    {label: 'عثمان بن عفان', value: 'عثمان بن عفان'},
+    {label: 'ابوبکر صدیق', value: 'ابوبکر صدیق'},
+    {label: 'عمر بن خطاب', value: 'عمر بن خطاب'},
+    {label: 'علی بن طالب', value: 'علی بن طالب'},
   ]);
 
   const getStudent = async () => {

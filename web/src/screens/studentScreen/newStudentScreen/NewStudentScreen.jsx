@@ -4,11 +4,12 @@ import "./NewStudentScreen.css";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.config";
 import { message } from "antd";
+import { Select, Space } from "antd";
 function NewStudentScreen() {
 	const [messageApi, contextHolder] = message.useMessage();
 	const [rollNo, setRollNo] = useState(null);
-	const [name, setName] = useState(null);
-	const [fatherName, setFatherName] = useState(null);
+	const [name, setName] = useState("");
+	const [fatherName, setFatherName] = useState("");
 	const [studentCNIC, setStudentCNIC] = useState(null);
 	const [fatherCNIC, setFatherCNIC] = useState(null);
 	const [completedClass, setCompletedClass] = useState(null);
@@ -21,11 +22,13 @@ function NewStudentScreen() {
 	const [fatherIncome, setFatherIncome] = useState(null);
 	const [previousSchool, setPreviousSchool] = useState(null);
 	const [address, setAddress] = useState(null);
-
+	const handleClassPicker = (value) => {
+		setRecentClass(value);
+	};
 	const newStudentData = {
 		rollNo: rollNo,
-		name: name,
-		fatherName: fatherName,
+		name: name.toUpperCase(),
+		fatherName: fatherName.toUpperCase(),
 		studentCNIC: studentCNIC,
 		fatherCNIC: fatherCNIC,
 		completedClass: completedClass,
@@ -38,6 +41,7 @@ function NewStudentScreen() {
 		fatherIncome: fatherIncome,
 		previousSchool: previousSchool,
 		address: address,
+		email: `${name.toLowerCase()}.${rollNo}@suffah.edu.pk`,
 	};
 
 	// const handleSaveButton = async () => {
@@ -126,10 +130,79 @@ function NewStudentScreen() {
 							changeText={(text) => setFatherOccupation(text)}
 						/>
 
-						<TextInput
+						{/* <TextInput
 							title={"CLASS : "}
 							changeText={(text) => setRecentClass(text)}
-						/>
+						/> */}
+						{/* Class Picker Container */}
+						<div className="newStudentClassPickerContainer">
+							<p className="studentListClassTitle">CLASS: </p>
+							<div>
+								<Space wrap>
+									<Select
+										defaultValue="10"
+										style={{
+											width: 150,
+										}}
+										onChange={handleClassPicker}
+										options={[
+											{
+												value: "Nursary",
+												label: "Nursary",
+											},
+											{
+												value: "KG",
+												label: "KG",
+											},
+											{
+												value: "1",
+												label: "1",
+											},
+											{
+												value: "2",
+												label: "2",
+											},
+											{
+												value: "3",
+												label: "3",
+											},
+											{
+												value: "4",
+												label: "4",
+											},
+											{
+												value: "5",
+												label: "5",
+											},
+											{
+												value: "6",
+												label: "6",
+											},
+											{
+												value: "7",
+												label: "7",
+											},
+											{
+												value: "8",
+												label: "8",
+											},
+											{
+												value: "9",
+												label: "9",
+											},
+											{
+												value: "10",
+												label: "10",
+											},
+											{
+												value: "inactive",
+												label: "inactive",
+											},
+										]}
+									/>
+								</Space>
+							</div>
+						</div>
 						<TextInput
 							title={"PHONE NUMBER 2: "}
 							changeText={(text) => setPhoneNumber2(text)}

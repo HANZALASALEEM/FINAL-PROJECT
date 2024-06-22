@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, StatusBar, ScrollView} from 'react-native';
 import React from 'react';
 import COLOR from '../../assets/color/Color';
 import {
@@ -13,32 +13,37 @@ const WhoAreYouScreen = () => {
     <View style={styles.container}>
       <StatusBar backgroundColor="#ffffff" />
       {/* 30% For Heading Container */}
-      <View style={styles.headingContainer}>
-        <Text style={styles.heading}>WHO ARE YOU?</Text>
-      </View>
+      <ScrollView>
+        <View style={styles.headingContainer}>
+          <Text style={styles.heading}>WHO ARE YOU?</Text>
+        </View>
 
-      {/* 10% For Forword Button Container */}
-      <View style={styles.buttonContainer}>
-        <ForwordButton title={'STUDENT'} />
-      </View>
+        {/* 10% For Forword Button Container */}
+        <View style={styles.buttonContainer}>
+          <ForwordButton
+            title={'STUDENT'}
+            onPressButton={() => navigation.navigate('StudentLoginScreen')}
+          />
+        </View>
 
-      {/* 10% For Forword Button Container */}
-      <View style={styles.buttonContainer}>
-        <ForwordButton
-          title={'TEACHER'}
-          onPressButton={() => navigation.navigate('TeacherLoginScreen')}
-        />
-      </View>
+        {/* 10% For Forword Button Container */}
+        <View style={styles.buttonContainer}>
+          <ForwordButton
+            title={'TEACHER'}
+            onPressButton={() => navigation.navigate('TeacherLoginScreen')}
+          />
+        </View>
 
-      {/* 10% For Forword Button Container */}
-      <View style={styles.buttonContainer}>
-        <ForwordButton title={'ADMINISTRATOR'} />
-      </View>
+        {/* 10% For Forword Button Container */}
+        <View style={styles.buttonContainer}>
+          <ForwordButton title={'ADMINISTRATOR'} />
+        </View>
 
-      {/* 10% For Forword Button Container */}
-      <View style={styles.buttonContainer}>
-        <ForwordButton title={'GUEST'} />
-      </View>
+        {/* 10% For Forword Button Container */}
+        <View style={styles.buttonContainer}>
+          <ForwordButton title={'GUEST'} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -49,6 +54,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR.white,
+    alignSelf: 'center',
   },
   headingContainer: {
     height: hp('30%'),

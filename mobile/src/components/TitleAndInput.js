@@ -5,7 +5,14 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-const TitleAndInput = ({icon, title, placeholder, value, onChangeText}) => {
+const TitleAndInput = ({
+  icon,
+  title,
+  placeholder,
+  value,
+  onChangeText,
+  readOnly,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.iconAndTitleContainer}>
@@ -20,6 +27,7 @@ const TitleAndInput = ({icon, title, placeholder, value, onChangeText}) => {
         onChangeText={text => {
           onChangeText(text);
         }}
+        readOnly={readOnly}
       />
     </View>
   );

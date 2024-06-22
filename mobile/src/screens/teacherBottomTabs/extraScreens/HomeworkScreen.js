@@ -52,6 +52,9 @@ const HomeworkScreen = () => {
     {label: '5', value: '5'},
     {label: '6', value: '6'},
     {label: '7', value: '7'},
+    {label: '8', value: '8'},
+    {label: '9', value: '9'},
+    {label: '10', value: '10'},
   ]);
   const [physics, setPhysics] = useState(null);
   const [computer, setComputer] = useState(null);
@@ -66,10 +69,12 @@ const HomeworkScreen = () => {
   const [loading, setLoading] = useState(false);
   const [present, setPresent] = useState(0);
   const month_year = date.slice(0, 7);
+  const year = date.slice(0, 4);
   useEffect(() => {
     const getCurrentDate = () => {
       const date = new Date();
       const year = date.getFullYear();
+
       const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1 and pad single digit months with a leading zero
       const day = String(date.getDate()).padStart(2, '0'); // Pad single digit days with a leading zero
       return `${year}-${month}-${day}`;
@@ -83,14 +88,14 @@ const HomeworkScreen = () => {
         const homeworkCollectionRef = collection(
           db,
           'Homework',
+          year,
           month_year,
-          date,
         );
-        const homeworkDocId = `${className}`;
+        const homeworkDocId = `${className}_${date}`;
         const homeworkDoc = await getDoc(
           doc(homeworkCollectionRef, homeworkDocId),
         );
-
+        console.log(year);
         if (homeworkDoc.exists()) {
           ToastAndroid.show('Homework Retrieving ...', ToastAndroid.SHORT);
           const data = homeworkDoc.data();
@@ -140,9 +145,9 @@ const HomeworkScreen = () => {
       // Use setDoc to update or create a document with a specific rollNo
       const homeworkRef = doc(
         homeworkCollectionRef,
+        year,
         month_year,
-        date,
-        className,
+        `${className}_${date}`,
       );
       const homeworkData = {
         physics: physics || '',
@@ -154,6 +159,8 @@ const HomeworkScreen = () => {
         islamiyat: islamiyat || '',
         pakSt: pakSt || '',
         biology: biology || '',
+        date: date,
+        class: className,
       };
       await setDoc(homeworkRef, homeworkData);
 

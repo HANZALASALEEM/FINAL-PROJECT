@@ -56,28 +56,31 @@ const TeacherAttendance = () => {
   const [loading, setLoading] = useState(false);
   const [present, setPresent] = useState(0);
 
-  const getStudent = async () => {
-    setLoading(true);
-    try {
-      const q = query(
-        collection(db, 'Student'),
-        where('class', '==', className),
-      );
-      const querySnapshot = await getDocs(q);
-      const students = [];
-      querySnapshot.forEach(doc => {
-        students.push({id: doc.id, ...doc.data()});
-      });
-      setStudentData(students);
-    } catch (error) {
-      console.error('Error fetching Students:', error);
-    } finally {
-      setLoading(false); // Set loading to false after fetching data
-    }
+  useEffect(() => {
+    const getStudent = async () => {
+      setLoading(true);
+      try {
+        const q = query(
+          collection(db, 'Student'),
+          where('class', '==', className),
+        );
+        const querySnapshot = await getDocs(q);
+        const students = [];
+        querySnapshot.forEach(doc => {
+          students.push({id: doc.id, ...doc.data()});
+        });
+        setStudentData(students);
+      } catch (error) {
+        console.error('Error fetching Students:', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
+      }
 
-    console.log(studentData);
-    console.log('getStudent work done');
-  };
+      console.log(studentData);
+      console.log('getStudent work done');
+    };
+    getStudent();
+  }, [className]);
 
   const submitAttendance = async item => {
     if (!date) {
@@ -140,8 +143,9 @@ const TeacherAttendance = () => {
         </View>
         <DropDownPicker
           items={items} // Pass the items array
-          value={value}
+          value={className}
           //defaultValue={className}
+          zIndex={10000}
           setValue={setValue}
           setItems={setItems}
           theme="LIGHT"
@@ -166,10 +170,10 @@ const TeacherAttendance = () => {
             setClassName(item.value);
           }}
         />
-        {/* 10% for Get Student Button Container */}
+        {/* 10% for Get Student Button Container
         <View style={styles.buttonContainer}>
           <SubmitButton title={'GET STUDENT'} onPress={() => getStudent()} />
-        </View>
+        </View> */}
         <View style={styles.playgroundContainer}>
           <View style={styles.infoBar}>
             <Text style={{width: '50%', color: COLOR.black}}>STUDENT NAME</Text>
@@ -269,7 +273,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: wp('100%'),
-    backgroundColor: '#e9e9e9',
+
     alignItems: 'center',
     paddingHorizontal: 10,
   },
