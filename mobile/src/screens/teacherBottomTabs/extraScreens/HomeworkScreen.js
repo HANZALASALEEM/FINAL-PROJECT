@@ -88,14 +88,14 @@ const HomeworkScreen = () => {
         const homeworkCollectionRef = collection(
           db,
           'Homework',
-          year,
-          month_year,
+          className,
+          'homeworkDetail',
         );
         const homeworkDocId = `${className}_${date}`;
         const homeworkDoc = await getDoc(
           doc(homeworkCollectionRef, homeworkDocId),
         );
-        console.log(year);
+
         if (homeworkDoc.exists()) {
           ToastAndroid.show('Homework Retrieving ...', ToastAndroid.SHORT);
           const data = homeworkDoc.data();
@@ -145,8 +145,8 @@ const HomeworkScreen = () => {
       // Use setDoc to update or create a document with a specific rollNo
       const homeworkRef = doc(
         homeworkCollectionRef,
-        year,
-        month_year,
+        className,
+        'homeworkDetail',
         `${className}_${date}`,
       );
       const homeworkData = {

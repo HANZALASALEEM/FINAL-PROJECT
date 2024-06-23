@@ -116,7 +116,7 @@ const TestReportScreen = () => {
         db,
         'TestReport',
         className,
-        month_year,
+        'reports',
       );
 
       const testReportDocRef = doc(
