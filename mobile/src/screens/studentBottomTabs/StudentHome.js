@@ -95,8 +95,12 @@ const StudentHome = ({route}) => {
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
         title={'SUFFAH ISLAMIC CENTER'}
-        leftIcon={require('../../assets/icons/menu.png')}
-        rightIcon={require('../../assets/images/suffah-mono.png')}
+        onPressLeftIcon={() => {
+          console.log('Left Icon Pressed');
+        }}
+        onPressRightIcon={() => {
+          console.log('Right Icon Pressed');
+        }}
       />
       <ScrollView style={styles.scrollView}>
         {/* Banner */}

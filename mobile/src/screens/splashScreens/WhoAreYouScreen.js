@@ -36,12 +36,12 @@ const WhoAreYouScreen = () => {
 
         {/* 10% For Forword Button Container */}
         <View style={styles.buttonContainer}>
-          <ForwordButton title={'ADMINISTRATOR'} />
-        </View>
-
-        {/* 10% For Forword Button Container */}
-        <View style={styles.buttonContainer}>
-          <ForwordButton title={'GUEST'} />
+          <ForwordButton
+            title={'ADMINISTRATOR'}
+            onPressButton={() =>
+              navigation.navigate('AdministrationLoginScreen')
+            }
+          />
         </View>
       </ScrollView>
     </View>

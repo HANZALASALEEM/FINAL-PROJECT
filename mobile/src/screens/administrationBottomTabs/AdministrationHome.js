@@ -28,7 +28,7 @@ import {
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 
-const TeacherHome = ({route}) => {
+const AdministrationHome = ({route}) => {
   const navigation = useNavigation();
   const {params} = route;
   const data = params ? params.data : null;
@@ -40,19 +40,6 @@ const TeacherHome = ({route}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Time Table Data Fetching
-        const timeTableQuery = query(
-          collection(db, 'TimeTable'),
-          where('teacherName', '==', data.name),
-          orderBy('periodNo', 'asc'),
-        );
-        const timeTableSnapshot = await getDocs(timeTableQuery);
-        const timeTable = timeTableSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setTimeTableData(timeTable);
-
         // Notification Data Fetching
         const updatesQuery = query(
           collection(db, 'Notification'),
@@ -65,7 +52,7 @@ const TeacherHome = ({route}) => {
           ...doc.data(),
         }));
         setUpdatesData(updates);
-
+        console.log(updatesData);
         // Events Data Fetching
         const eventsQuery = query(
           collection(db, 'Event'),
@@ -112,72 +99,52 @@ const TeacherHome = ({route}) => {
           <View>
             <Text style={styles.teacherNameText}>{data.name}</Text>
             <View style={styles.classInchargeContainer}>
-              <Text style={styles.classInchargeText}>INCHARGE CLASS</Text>
-              <Text style={styles.classInchargeText}>{data.classIncharge}</Text>
+              <Text style={styles.classInchargeText}>ADMINISTRATOR</Text>
             </View>
           </View>
         </View>
 
-        {/* Time Table Container */}
-        <View style={styles.timetableContainer}>
-          <Text style={styles.heading}>TIME TABLE</Text>
-          {loading ? (
-            <ActivityIndicator size="large" color={COLOR.blue} />
-          ) : (
-            <FlatList
-              data={timeTableData}
-              keyExtractor={item => item.id}
-              renderItem={({item}) => (
-                <View style={styles.timetableItem}>
-                  <Text
-                    style={[
-                      styles.descriptionText,
-                      {color: COLOR.blue, fontWeight: '600'},
-                    ]}>
-                    {item.subject}
-                  </Text>
-                  <Text style={styles.descriptionText}>{item.class}</Text>
-                  <Text
-                    style={[
-                      styles.descriptionText,
-                      {color: COLOR.blue, fontWeight: '600'},
-                    ]}>
-                    {item.startingTime}
-                  </Text>
-                  <Text style={styles.descriptionText}>TO</Text>
-                  <Text
-                    style={[
-                      styles.descriptionText,
-                      {color: COLOR.blue, fontWeight: '600'},
-                    ]}>
-                    {item.endingTime}
-                  </Text>
-                </View>
-              )}
+        {/* Attendence and Complaint Container */}
+        <View style={styles.attendenceAndComplaintContainer}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => navigation.navigate('StudentEvent')}>
+            <Image
+              source={require('../../assets/icons/event.png')}
+              style={styles.icon}
             />
-          )}
+            <Text style={[styles.descriptionText, {marginTop: 5}]}>
+              EVENT LIST
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => navigation.navigate('StudentNotification')}>
+            <Image
+              source={require('../../assets/icons/notificaiton.png')}
+              style={styles.icon}
+            />
+            <Text style={[styles.descriptionText, {marginTop: 5}]}>
+              NOTIFICATION LIST
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => navigation.navigate('ComplaintListScreen')}>
+            <Image
+              source={require('../../assets/icons/feedback.png')}
+              style={styles.icon}
+            />
+            <Text style={[styles.descriptionText, {marginTop: 5}]}>
+              COMPLAINT
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Updates Container */}
         <View style={styles.updateContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={styles.heading}>UPDATES</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('StudentNotification')}>
-              <Text
-                style={[
-                  styles.classInchargeText,
-                  {textDecorationLine: 'underline'},
-                ]}>
-                See all
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.heading}>UPDATES</Text>
+
           {loading ? (
             <ActivityIndicator size="large" color={COLOR.blue} />
           ) : (
@@ -208,24 +175,7 @@ const TeacherHome = ({route}) => {
 
         {/* Events Container */}
         <View style={styles.updateContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={styles.heading}>EVENTS</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('StudentEvent')}>
-              <Text
-                style={[
-                  styles.classInchargeText,
-                  {textDecorationLine: 'underline'},
-                ]}>
-                See all
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.heading}>EVENTS</Text>
           {loading ? (
             <ActivityIndicator size="large" color={COLOR.blue} />
           ) : (
@@ -255,7 +205,7 @@ const TeacherHome = ({route}) => {
   );
 };
 
-export default TeacherHome;
+export default AdministrationHome;
 
 const styles = StyleSheet.create({
   container: {
@@ -305,11 +255,32 @@ const styles = StyleSheet.create({
     marginRight: 7,
     paddingTop: 10,
   },
-  timetableContainer: {
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  attendenceAndComplaintContainer: {
     width: wp('90%'),
-    // backgroundColor: 'red',
+    height: 70,
+    borderRadius: 10,
+    shadowColor: COLOR.black, // Shadow color
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1, // Shadow opacity (0 to 1)
+    shadowRadius: 3, // Shadow blur radius
+    elevation: 5,
+    backgroundColor: COLOR.white,
     alignSelf: 'center',
     marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   heading: {
     color: COLOR.blue,
@@ -351,7 +322,7 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     height: hp('20%'),
-    width: wp('88%'),
+    width: wp('90%'),
     borderRadius: 10,
     marginVertical: 20,
     shadowColor: COLOR.black, // Shadow color

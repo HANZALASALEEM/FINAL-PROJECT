@@ -537,8 +537,12 @@ const StudentEducation = ({route}) => {
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
         title={'EDUCATION'}
-        leftIcon={require('../../assets/icons/menu.png')}
-        rightIcon={require('../../assets/images/suffah-mono.png')}
+        onPressLeftIcon={() => {
+          console.log('Left Icon Pressed');
+        }}
+        onPressRightIcon={() => {
+          console.log('Right Icon Pressed');
+        }}
       />
       <ScrollView style={styles.scrollView}>
         <View>
@@ -965,8 +969,12 @@ const StudentEducation = ({route}) => {
                 placeholder="Teacher's review about your child..."
                 placeholderTextColor="gray"
                 value={studyStatus}
-                readOnly={true}
+                // readOnly={true}
               />
+
+              {/* <ScrollView style={styles.studyStatusScrollView}>
+                <Text style={styles.studyStatusText}>{studyStatus}</Text>
+              </ScrollView> */}
             </>
           )}
         </View>
@@ -1058,5 +1066,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginVertical: 10,
     textAlignVertical: 'top',
+  },
+  studyStatusScrollView: {
+    height: 100,
+    width: wp('90%'),
+    alignSelf: 'center',
+    backgroundColor: COLOR.white,
+    borderRadius: 15,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    shadowColor: COLOR.lightBlue, // Shadow color
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.7, // Shadow opacity (0 to 1)
+    shadowRadius: 3.84, // Shadow blur radius
+    elevation: 5,
+    borderColor: COLOR.gray,
+    borderWidth: 0.5,
+    marginVertical: 5,
+  },
+  studyStatusText: {
+    width: '95%',
+    color: COLOR.black,
+    alignSelf: 'center',
   },
 });

@@ -32,8 +32,10 @@ import TitleAndInput from '../../components/TitleAndInput';
 import SubmitButton from '../../components/SubmitButton';
 import {Calendar} from 'react-native-calendars';
 
-const TeacherAttendance = () => {
-  const [className, setClassName] = useState(null);
+const TeacherAttendance = ({route}) => {
+  const {params} = route;
+  const data = params ? params.data : null;
+  const [className, setClassName] = useState(data.classIncharge);
   const [date, setDate] = useState('');
   const [studentData, setStudentData] = useState([]);
   const [open, setOpen] = useState(false);
@@ -53,7 +55,7 @@ const TeacherAttendance = () => {
     {label: '9', value: '9'},
     {label: '10', value: '10'},
   ]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [present, setPresent] = useState(0);
 
   useEffect(() => {
@@ -93,8 +95,8 @@ const TeacherAttendance = () => {
       const attendanceCollectionRef = collection(
         db,
         'Attendance',
-        className,
         month_year,
+        'attendance',
       );
 
       const attendanceDocRef = doc(
@@ -106,6 +108,8 @@ const TeacherAttendance = () => {
         name: item.name,
         date: date,
         present: item.present,
+        phone: item.phoneNumber1,
+        class: item.class,
       };
       await setDoc(attendanceDocRef, studentAttendanceData);
 
@@ -123,8 +127,12 @@ const TeacherAttendance = () => {
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
         title={'ATTENDANCE'}
-        leftIcon={require('../../assets/icons/menu.png')}
-        rightIcon={require('../../assets/images/suffah-mono.png')}
+        onPressLeftIcon={() => {
+          console.log('Left Icon Pressed');
+        }}
+        onPressRightIcon={() => {
+          console.log('Right Icon Pressed');
+        }}
       />
       <ScrollView>
         <View>
@@ -145,7 +153,7 @@ const TeacherAttendance = () => {
           items={items} // Pass the items array
           value={className}
           //defaultValue={className}
-          zIndex={10000}
+          zIndex={100000}
           setValue={setValue}
           setItems={setItems}
           theme="LIGHT"

@@ -35,8 +35,12 @@ const TeacherEducation = () => {
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
         title={'EDUCATION'}
-        leftIcon={require('../../assets/icons/menu.png')}
-        rightIcon={require('../../assets/images/suffah-mono.png')}
+        onPressLeftIcon={() => {
+          console.log('Left Icon Pressed');
+        }}
+        onPressRightIcon={() => {
+          console.log('Right Icon Pressed');
+        }}
       />
 
       <View style={styles.rowOptionContainer}>

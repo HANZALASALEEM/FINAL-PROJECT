@@ -1,21 +1,21 @@
 import {StyleSheet, Text, View, StatusBar, ScrollView} from 'react-native';
 import React from 'react';
-import COLOR from '../assets/color/Color';
-import Navbar from '../components/Navbar';
+import COLOR from '../../../assets/color/Color';
+import Navbar from '../../../components/Navbar';
 import {useNavigation} from '@react-navigation/native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-const NotificationViewScreen = ({route}) => {
+const ComplaintDetailScreen = ({route}) => {
   const navigation = useNavigation();
-  const notificationData = route.params.data;
+  const complaintData = route.params.data;
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
-        title={'NOTIFICATION DETAIL'}
-        leftIcon={require('../assets/icons/left-arrow.png')}
+        title={complaintData.studentName}
+        leftIcon={require('../../../assets/icons/left-arrow.png')}
         onPressLeftIcon={() => navigation.goBack()}
         onPressRightIcon={() => {
           console.log('Right Icon Pressed');
@@ -24,19 +24,17 @@ const NotificationViewScreen = ({route}) => {
 
       {/* 10% for Date Container */}
       <View style={styles.dateContainer}>
-        <Text style={styles.date}>
-          {notificationData.date.toDate().toDateString().toUpperCase()}
-        </Text>
+        <Text style={styles.date}>{complaintData.date}</Text>
       </View>
       {/* Notification Container */}
       <View style={styles.notificationContainer}>
-        <Text style={styles.notification}>{notificationData.notification}</Text>
+        <Text style={styles.notification}>{complaintData.complaint}</Text>
       </View>
     </ScrollView>
   );
 };
 
-export default NotificationViewScreen;
+export default ComplaintDetailScreen;
 
 const styles = StyleSheet.create({
   container: {

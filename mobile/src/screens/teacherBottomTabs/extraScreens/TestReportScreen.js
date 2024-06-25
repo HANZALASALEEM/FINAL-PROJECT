@@ -148,12 +148,11 @@ const TestReportScreen = () => {
       <Navbar
         title={'TEST REPORT'}
         leftIcon={require('../../../assets/icons/left-arrow.png')}
-        rightIcon={require('../../../assets/images/suffah-mono.png')}
         onPressLeftIcon={() => {
           navigation.goBack();
         }}
         onPressRightIcon={() => {
-          console.log('SUFFAH LOGO');
+          console.log('Right Icon Pressed');
         }}
       />
       <DropDownPicker

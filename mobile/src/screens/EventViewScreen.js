@@ -24,6 +24,9 @@ const EventViewScreen = ({route}) => {
         title={'EVENT DETAIL'}
         leftIcon={require('../assets/icons/left-arrow.png')}
         onPressLeftIcon={() => navigation.goBack()}
+        onPressRightIcon={() => {
+          console.log('Right Icon Pressed');
+        }}
       />
       <View style={styles.bannerImageContainer}>
         <Image source={{uri: eventData.image}} style={styles.bannerImage} />

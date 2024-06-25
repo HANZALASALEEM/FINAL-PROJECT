@@ -11,6 +11,7 @@ import StudentEvent from '../screens/studentBottomTabs/StudentEvent';
 import StudentNotification from '../screens/studentBottomTabs/StudentNotification';
 import StudentHome from '../screens/studentBottomTabs/StudentHome';
 import StudentEducation from '../screens/studentBottomTabs/StudentEducation';
+import StudentHifz from '../screens/studentBottomTabs/StudentHifz';
 
 const Tab = createBottomTabNavigator();
 const StudentBottomNavigator = ({route}) => {
@@ -107,7 +108,7 @@ const StudentBottomNavigator = ({route}) => {
       />
       <Tab.Screen
         name="Hifz"
-        component={TeacherHifz}
+        component={StudentHifz}
         initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,

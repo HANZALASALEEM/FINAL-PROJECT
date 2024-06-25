@@ -10,48 +10,68 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {collection, query, orderBy, getDocs} from 'firebase/firestore';
-import {db} from '../../firebase/firebase.config';
+import {db} from '../../../firebase/firebase.config';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import COLOR from '../../assets/color/Color';
-import Navbar from '../../components/Navbar';
+import COLOR from '../../../assets/color/Color';
+import Navbar from '../../../components/Navbar';
 
-const StudentNotification = () => {
+const ComplaintListScreen = () => {
   const navigation = useNavigation();
-  const [updatesData, setUpdatesData] = useState([]);
+  const [complaintsData, setComplaintsData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
+  const [date, setDate] = useState('');
 
   useEffect(() => {
-    const getUpdates = async () => {
+    const getCurrentDate = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1 and pad single digit months with a leading zero
+      const day = String(date.getDate()).padStart(2, '0'); // Pad single digit days with a leading zero
+      return `${year}-${month}-${day}`;
+    };
+
+    setDate(getCurrentDate());
+  }, []);
+
+  useEffect(() => {
+    const month_year = date.slice(0, 7); // Format month_year correctly
+
+    const getComplaints = async () => {
       try {
         const q = query(
-          collection(db, 'Notification'),
+          collection(db, 'Complaint', month_year, 'complaints'),
           orderBy('date', 'desc'),
         );
         const querySnapshot = await getDocs(q);
-        const notification = [];
+        const complaint = [];
         querySnapshot.forEach(doc => {
-          notification.push({id: doc.id, ...doc.data()});
+          complaint.push({id: doc.id, ...doc.data()});
         });
-        setUpdatesData(notification);
+        setComplaintsData(complaint);
+        console.log(complaintsData);
       } catch (error) {
-        console.error('Error fetching updates:', error);
+        console.error('Error fetching complaint:', error);
       } finally {
         setLoading(false); // Set loading to false after fetching data
       }
     };
-    getUpdates();
-  }, []);
+
+    if (date) {
+      getComplaints();
+    }
+  }, [date]);
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
-        title={'NOTIFICATIONS'}
+        title={'COMPLAINTS'}
+        leftIcon={require('../../../assets/icons/left-arrow.png')}
         onPressLeftIcon={() => {
-          console.log('Left Icon Pressed');
+          navigation.goBack();
         }}
         onPressRightIcon={() => {
           console.log('Right Icon Pressed');
@@ -64,24 +84,20 @@ const StudentNotification = () => {
           <ActivityIndicator size="large" color={COLOR.blue} />
         ) : (
           <FlatList
-            data={updatesData}
+            data={complaintsData}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
                 style={[styles.notificationItem, {flexDirection: 'row'}]}
                 onPress={() =>
-                  navigation.navigate('NotificationViewScreen', {data: item})
+                  navigation.navigate('ComplaintDetailScreen', {data: item})
                 }>
                 <Text style={[styles.text, {color: COLOR.blue}]}>
-                  {item.notification.length > 18
-                    ? item.notification.substring(0, 18).toUpperCase() + '...'
-                    : item.notification.toUpperCase()}
+                  {item.studentName.length > 18
+                    ? item.studentName.substring(0, 18).toUpperCase() + '...'
+                    : item.studentName.toUpperCase()}
                 </Text>
-                <Text style={styles.text}>
-                  {item.date
-                    ? item.date.toDate().toDateString().toUpperCase()
-                    : ''}
-                </Text>
+                <Text style={styles.text}>{item.class}</Text>
               </TouchableOpacity>
             )}
           />
@@ -119,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingHorizontal: 5,
+    paddingHorizontal: 15,
   },
   text: {
     color: COLOR.lightBlue,
@@ -128,4 +144,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StudentNotification;
+export default ComplaintListScreen;

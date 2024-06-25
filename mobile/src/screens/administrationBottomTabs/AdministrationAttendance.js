@@ -7,45 +7,33 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import COLOR from '../../../assets/color/Color';
-import Navbar from '../../../components/Navbar';
+import COLOR from '../../assets/color/Color';
+import Navbar from '../../components/Navbar';
 import {collection, getDocs, orderBy, query, where} from 'firebase/firestore';
-import {db} from '../../../firebase/firebase.config';
+import {db} from '../../firebase/firebase.config';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {useNavigation} from '@react-navigation/native';
+import {Calendar} from 'react-native-calendars';
 
-const StudentAttendence = ({route}) => {
+const AdministrationAttendance = ({route}) => {
   const navigation = useNavigation();
   const {data} = route.params;
   const [date, setDate] = useState('');
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
-  const [className, setClassName] = useState(data.class);
 
   useEffect(() => {
-    const getCurrentDate = () => {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1 and pad single digit months with a leading zero
-      const day = String(date.getDate()).padStart(2, '0'); // Pad single digit days with a leading zero
-      return `${year}-${month}-${day}`;
-    };
-
-    setDate(getCurrentDate());
-
     const fetchAttendanceData = async () => {
-      if (!className) return;
       const month_year = getCurrentDate().slice(0, 7); // Format month_year correctly
-
+      console.log('kam kr raha ht');
       setLoading(true);
       try {
         const q = query(
           collection(db, 'Attendance', month_year, 'attendance'),
-          where('date', '>=', `${month_year}-01`),
-          where('date', '<=', `${month_year}-31`),
-          orderBy('date', 'desc'),
+          where('date', '==', date),
         );
 
         const querySnapshot = await getDocs(q);
@@ -54,21 +42,25 @@ const StudentAttendence = ({route}) => {
           attendanceRecords.push({id: doc.id, ...doc.data()});
         });
         setAttendanceData(attendanceRecords);
+        console.log(attendanceData);
       } catch (error) {
         console.error('Error fetching attendance data:', error);
       } finally {
         setLoading(false);
       }
     };
+    if (date) {
+      fetchAttendanceData();
+    }
 
-    fetchAttendanceData();
-  }, [className]);
+    console.log(date);
+  }, [date]);
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
       <Navbar
-        title={data.name.toUpperCase()}
+        title={'ATTENDANCE'}
         onPressLeftIcon={() => {
           console.log('Left Icon Pressed');
         }}
@@ -76,35 +68,24 @@ const StudentAttendence = ({route}) => {
           console.log('Right Icon Pressed');
         }}
       />
+
+      {/* Calendar Container  */}
+      <View>
+        <Calendar
+          onDayPress={day => {
+            setDate(day.dateString);
+          }}
+          markedDates={{
+            [date]: {
+              selected: true,
+              disableTouchEvent: true,
+              selectedDotColor: '#6e6a63',
+            },
+          }}
+        />
+      </View>
       <View style={styles.headingContainer}>
-        <Text style={styles.heading}>REPORT</Text>
-        {date.slice(5, 7) === '01' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>JANUARY</Text>
-        ) : date.slice(5, 7) === '02' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>FEBRUARY</Text>
-        ) : date.slice(5, 7) === '03' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>MARCH</Text>
-        ) : date.slice(5, 7) === '04' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>APRIL</Text>
-        ) : date.slice(5, 7) === '05' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>MAY</Text>
-        ) : date.slice(5, 7) === '06' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>JUNE</Text>
-        ) : date.slice(5, 7) === '07' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>JULY</Text>
-        ) : date.slice(5, 7) === '08' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>AUGUST</Text>
-        ) : date.slice(5, 7) === '09' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>SEPTEMBER</Text>
-        ) : date.slice(5, 7) === '10' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>OCTOBER</Text>
-        ) : date.slice(5, 7) === '11' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>NOVEMBER</Text>
-        ) : date.slice(5, 7) === '12' ? (
-          <Text style={[styles.text, {color: COLOR.lightBlue}]}>DECEMBER</Text>
-        ) : (
-          <Text style={[styles.text, {color: COLOR.black}]}>THIS MONTH</Text>
-        )}
+        <Text style={styles.heading}>ABSENT STUDENTS</Text>
       </View>
       {loading ? (
         <ActivityIndicator size="large" color={COLOR.blue} />
@@ -134,7 +115,7 @@ const StudentAttendence = ({route}) => {
   );
 };
 
-export default StudentAttendence;
+export default AdministrationAttendance;
 
 const styles = StyleSheet.create({
   container: {

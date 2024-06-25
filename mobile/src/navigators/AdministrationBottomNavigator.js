@@ -7,9 +7,15 @@ import TeacherAttandence from '../screens/teacherBottomTabs/TeacherAttandence';
 import COLOR from '../assets/color/Color';
 import TeacherEducation from '../screens/teacherBottomTabs/TeacherEducation';
 import TeacherHifz from '../screens/teacherBottomTabs/TeacherHifz';
+import StudentEvent from '../screens/studentBottomTabs/StudentEvent';
+import StudentNotification from '../screens/studentBottomTabs/StudentNotification';
+import AdministrationHome from '../screens/administrationBottomTabs/AdministrationHome';
+import StudentEducation from '../screens/studentBottomTabs/StudentEducation';
+import StudentHifz from '../screens/studentBottomTabs/StudentHifz';
+import AdministrationAttendance from '../screens/administrationBottomTabs/AdministrationAttendance';
 
 const Tab = createBottomTabNavigator();
-const TeacherBottomNavigator = ({route}) => {
+const AdministrationBottomNavigator = ({route}) => {
   const {data} = route.params;
   return (
     <Tab.Navigator
@@ -31,7 +37,7 @@ const TeacherBottomNavigator = ({route}) => {
       }}>
       <Tab.Screen
         name="Home"
-        component={TeacherHome}
+        component={AdministrationHome}
         initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,
@@ -49,8 +55,8 @@ const TeacherBottomNavigator = ({route}) => {
       />
       <Tab.Screen
         name="Attendance"
-        initialParams={{data}}
-        component={TeacherAttandence}
+        component={AdministrationAttendance}
+        initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
@@ -66,16 +72,17 @@ const TeacherBottomNavigator = ({route}) => {
         }}
       />
       <Tab.Screen
-        name="Education"
-        component={TeacherEducation}
+        name="Fee"
+        component={StudentNotification}
+        initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
             return focused ? (
-              <Text style={styles.tabText}>EDUCATION</Text>
+              <Text style={styles.tabText}>FEE COLLECTION</Text>
             ) : (
               <Image
-                source={require('../assets/icons/education.png')}
+                source={require('../assets/icons/feeCollection.png')}
                 style={[styles.icon, {tintColor: color}]}
               />
             );
@@ -83,16 +90,17 @@ const TeacherBottomNavigator = ({route}) => {
         }}
       />
       <Tab.Screen
-        name="Hifz"
-        component={TeacherHifz}
+        name="Expenses"
+        component={StudentEducation}
+        initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
             return focused ? (
-              <Text style={styles.tabText}>QURAN</Text>
+              <Text style={styles.tabText}>EXPENSES</Text>
             ) : (
               <Image
-                source={require('../assets/icons/hifz.png')}
+                source={require('../assets/icons/expense.png')}
                 style={[styles.icon, {tintColor: color}]}
               />
             );
@@ -103,7 +111,7 @@ const TeacherBottomNavigator = ({route}) => {
   );
 };
 
-export default TeacherBottomNavigator;
+export default AdministrationBottomNavigator;
 
 const styles = StyleSheet.create({
   icon: {

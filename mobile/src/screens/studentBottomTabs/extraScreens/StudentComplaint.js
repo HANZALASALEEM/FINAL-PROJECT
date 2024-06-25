@@ -21,11 +21,13 @@ import SubmitButton from '../../../components/SubmitButton';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {collection, setDoc, doc} from 'firebase/firestore';
 import {db} from '../../../firebase/firebase.config';
-const StudentComplaint = () => {
+const StudentComplaint = ({route}) => {
+  const {params} = route;
+  const data = params ? params.data : null;
   const navigation = useNavigation();
-  const [name, setName] = useState(null);
+  const [name, setName] = useState(data.name);
   const [value, setValue] = useState(null);
-  const [className, setClassName] = useState(null);
+  const [className, setClassName] = useState(data.class);
   const [complaint, setComplaint] = useState(null);
   const [openClasses, setOpenClasses] = useState(false);
   const [date, setDate] = useState(null);
@@ -59,6 +61,7 @@ const StudentComplaint = () => {
     };
 
     setDate(getCurrentDate());
+    console.log(data.name);
   }, []);
 
   const submitButton = async () => {
@@ -75,17 +78,20 @@ const StudentComplaint = () => {
       const complaintCollectionRef = collection(
         db,
         'Complaint',
-        'Complaints',
         month_year,
+        'complaints',
       );
 
-      const complaintDocRef = doc(complaintCollectionRef, `${date}`);
+      const complaintDocRef = doc(
+        complaintCollectionRef,
+        `${data.name}_${date}`,
+      );
 
       const complaintData = {
         date: date,
         complaint: complaint,
-        studentName: name,
-        class: className,
+        studentName: data.name,
+        class: data.class,
       };
       await setDoc(complaintDocRef, complaintData);
 
@@ -101,66 +107,65 @@ const StudentComplaint = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLOR.blue} />
-      <ScrollView>
-        {/* 30% For Banner */}
-        <View style={styles.bannerContainer}>
-          <Text style={styles.bannerContainerHeading}>COMPLAINT!</Text>
-          <Text style={styles.bannerContainerTitle}>
-            YOUR COMPLAINT SURELY HELPFUL FOR US
-          </Text>
-        </View>
 
-        <View>
-          <TitleAndInput
-            icon={require('../../../assets/icons/mail.png')}
-            placeholder={'Type Student Name'}
-            title={'STUDENT NAME'}
-            onChangeText={text => setName(text)}
-            value={name}
-          />
-        </View>
+      {/* 30% For Banner */}
+      <View style={styles.bannerContainer}>
+        <Text style={styles.bannerContainerHeading}>COMPLAINT!</Text>
+        <Text style={styles.bannerContainerTitle}>
+          YOUR COMPLAINT SURELY HELPFUL FOR US
+        </Text>
+      </View>
 
-        <DropDownPicker
-          items={classes} // Pass the items array
-          value={className}
-          zIndex={10000}
-          //defaultValue={className}
-          setValue={setValue}
-          setItems={setClasses}
-          theme="LIGHT"
-          open={openClasses}
-          setOpen={setOpenClasses}
-          placeholder="Select Class"
-          containerStyle={{
-            height: 50,
-            width: wp('90%'),
-            alignSelf: 'center',
-            marginTop: 10,
-          }}
-          dropDownContainerStyle={{
-            backgroundColor: COLOR.white,
-            borderWidth: 0.3,
-          }}
-          style={{backgroundColor: COLOR.white, borderWidth: 0.3}}
-          itemStyle={{
-            justifyContent: 'flex-start',
-          }}
-          onSelectItem={item => {
-            setClassName(item.value);
-          }}
+      {/* <View>
+        <TitleAndInput
+          icon={require('../../../assets/icons/mail.png')}
+          placeholder={'Type Student Name'}
+          title={'STUDENT NAME'}
+          onChangeText={text => setName(text)}
+          value={name}
         />
-        <TextInput
-          style={styles.input}
-          multiline={true}
-          placeholder="Type your complaint..."
-          placeholderTextColor="gray"
-          onChangeText={text => setComplaint(text)}
-        />
-        {/* 10% for Sign In Button Container */}
-        <View style={styles.buttonContainer}>
-          <SubmitButton title={'SUBMIT'} onPress={() => submitButton()} />
-        </View>
-      </ScrollView>
+      </View> */}
+
+      {/* <DropDownPicker
+        items={classes} // Pass the items array
+        value={className}
+        zIndex={1000}
+        //defaultValue={className}
+        setValue={setValue}
+        setItems={setClasses}
+        theme="LIGHT"
+        open={openClasses}
+        setOpen={setOpenClasses}
+        placeholder="Select Class"
+        containerStyle={{
+          height: 50,
+          width: wp('90%'),
+          alignSelf: 'center',
+          marginTop: 10,
+        }}
+        dropDownContainerStyle={{
+          backgroundColor: COLOR.white,
+          borderWidth: 0.3,
+        }}
+        style={{backgroundColor: COLOR.white, borderWidth: 0.3}}
+        itemStyle={{
+          justifyContent: 'flex-start',
+        }}
+        onSelectItem={item => {
+          setClassName(item.value);
+        }}
+      /> */}
+      <TextInput
+        style={styles.input}
+        multiline={true}
+        placeholder="Type your complaint..."
+        placeholderTextColor="gray"
+        onChangeText={text => setComplaint(text)}
+      />
+      {/* 10% for Sign In Button Container */}
+      <View style={styles.buttonContainer}>
+        <SubmitButton title={'SUBMIT'} onPress={() => submitButton()} />
+      </View>
     </View>
   );
 };

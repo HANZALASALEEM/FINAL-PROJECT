@@ -23,6 +23,10 @@ import StudentLoginScreen from '../screens/loginScreens/StudentLoginScreen';
 import StudentBottomNavigator from './StudentBottomNavigator';
 import StudentAttendence from '../screens/studentBottomTabs/extraScreens/StudentAttendence';
 import StudentComplaint from '../screens/studentBottomTabs/extraScreens/StudentComplaint';
+import AdministrationLoginScreen from '../screens/loginScreens/AdministrationLoginScreen';
+import AdministrationBottomNavigator from './AdministrationBottomNavigator';
+import ComplaintListScreen from '../screens/administrationBottomTabs/extraScreens/ComplaintListScreen';
+import ComplaintDetailScreen from '../screens/administrationBottomTabs/extraScreens/ComplaintDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -137,6 +141,26 @@ const AppNavigator = () => {
       <Stack.Screen
         name="StudentComplaint"
         component={StudentComplaint}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AdministrationLoginScreen"
+        component={AdministrationLoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AdministrationBottomNavigator"
+        component={AdministrationBottomNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ComplaintListScreen"
+        component={ComplaintListScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ComplaintDetailScreen"
+        component={ComplaintDetailScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
