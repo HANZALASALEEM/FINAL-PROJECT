@@ -45,7 +45,8 @@ function ExpenseListScreen() {
 	}, [date]); // Add className to dependency array to rerun effect when it changes
 
 	const handleDatePicker = (value) => {
-		setDate(value.$d);
+		const formattedDate = value.format("DD MMMM YYYY");
+		setDate(formattedDate);
 	};
 
 	const handleExpenseDetailButton = (data) => {

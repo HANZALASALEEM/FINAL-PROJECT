@@ -13,6 +13,8 @@ import AdministrationHome from '../screens/administrationBottomTabs/Administrati
 import StudentEducation from '../screens/studentBottomTabs/StudentEducation';
 import StudentHifz from '../screens/studentBottomTabs/StudentHifz';
 import AdministrationAttendance from '../screens/administrationBottomTabs/AdministrationAttendance';
+import AdministrationFeeCollection from '../screens/administrationBottomTabs/AdministrationFeeCollection';
+import AdministrationExpense from '../screens/administrationBottomTabs/AdministrationExpense';
 
 const Tab = createBottomTabNavigator();
 const AdministrationBottomNavigator = ({route}) => {
@@ -73,7 +75,7 @@ const AdministrationBottomNavigator = ({route}) => {
       />
       <Tab.Screen
         name="Fee"
-        component={StudentNotification}
+        component={AdministrationFeeCollection}
         initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,
@@ -91,7 +93,7 @@ const AdministrationBottomNavigator = ({route}) => {
       />
       <Tab.Screen
         name="Expenses"
-        component={StudentEducation}
+        component={AdministrationExpense}
         initialParams={{data}} // Pass data as initial params
         options={{
           headerShown: false,

@@ -36,7 +36,10 @@ function NewFeeSubmissionScreen() {
 	};
 
 	const handleDatePicker = (value) => {
-		setDate(value.$d);
+		const formattedDate = value.format("DD MMMM YYYY");
+		// setDate(value.$d);
+		setDate(formattedDate);
+
 		console.log(date);
 	};
 	const handleSaveButton = async () => {

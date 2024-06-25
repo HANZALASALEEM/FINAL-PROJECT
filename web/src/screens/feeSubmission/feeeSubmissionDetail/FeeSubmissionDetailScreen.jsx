@@ -42,7 +42,8 @@ function FeeSubmissionDetailScreen() {
 	const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY", "DD-MM-YYYY", "DD-MM-YY"];
 
 	const handleDatePicker = (value) => {
-		setDate(value.$d);
+		const formattedDate = value.format("DD MMMM YYYY");
+		setDate(formattedDate);
 	};
 
 	const editName = async () => {

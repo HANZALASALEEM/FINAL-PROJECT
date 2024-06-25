@@ -23,11 +23,11 @@ const AdministrationAttendance = ({route}) => {
   const {data} = route.params;
   const [date, setDate] = useState('');
   const [attendanceData, setAttendanceData] = useState([]);
-  const [loading, setLoading] = useState(true); // State to track loading
+  const [loading, setLoading] = useState(false); // State to track loading
 
   useEffect(() => {
     const fetchAttendanceData = async () => {
-      const month_year = getCurrentDate().slice(0, 7); // Format month_year correctly
+      const month_year = date.slice(0, 7); // Format month_year correctly
       console.log('kam kr raha ht');
       setLoading(true);
       try {
@@ -97,16 +97,11 @@ const AdministrationAttendance = ({route}) => {
           renderItem={({item}) => (
             <View style={styles.flatlistEachContainer}>
               <Text style={[styles.text, {color: COLOR.blue}]}>
-                {item.date}
+                {item.name}
               </Text>
-
-              {item.present === '1' ? (
-                <Text style={[styles.text, {color: COLOR.green}]}>PRESENT</Text>
-              ) : item.present === '-1' ? (
-                <Text style={[styles.text, {color: COLOR.red}]}>ABSENT</Text>
-              ) : (
-                <Text style={[styles.text, {color: COLOR.black}]}>UNKNOWN</Text>
-              )}
+              <Text style={[styles.text, {color: COLOR.lightBlue}]}>
+                {item.class}
+              </Text>
             </View>
           )}
         />

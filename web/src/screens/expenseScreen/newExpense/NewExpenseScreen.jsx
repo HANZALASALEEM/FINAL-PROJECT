@@ -25,7 +25,8 @@ function NewExpenseScreen() {
 	};
 
 	const handleDatePicker = (value) => {
-		setDate(value.$d);
+		const formattedDate = value.format("DD MMMM YYYY");
+		setDate(formattedDate);
 	};
 	const handleSaveButton = async () => {
 		try {
@@ -85,12 +86,14 @@ function NewExpenseScreen() {
 						<TextInput
 							title={"GIVEN AMOUNT: "}
 							changeText={(text) => setGivenAmount(text)}
+							value={givenAmount}
 						/>
 					</div>
 					<div className="newExpenseAdmissionInfoColoum">
 						<TextInput
 							title={"RECEIVED AMOUNT: "}
 							changeText={(text) => setReceivedAmount(text)}
+							value={receivedAmount}
 						/>
 					</div>
 				</div>
