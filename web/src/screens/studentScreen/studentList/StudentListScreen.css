@@ -100,9 +100,13 @@
 	position: absolute;
 	top: 60px;
 	left: 30px;
-
-	background-color: #ffffff;
+	background-color: #3a62d7;
 	border-width: 0px;
+	border-radius: 10px;
+	height: 35px;
+	width: 100px;
+	color: #ffffff;
+	font-size: 14px;
 }
 .studentListPdfGenerateIcon {
 	width: 40px;

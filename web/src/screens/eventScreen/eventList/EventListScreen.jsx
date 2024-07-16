@@ -112,7 +112,11 @@ function EventListScreen() {
 							<p className="eventListTabNameDate">
 								{data.date.toDate().toLocaleDateString()}
 							</p>
-							<p className="eventListTabNameEvent">{data.event}</p>
+							<p className="eventListTabNameEvent">
+								{data.event.length > 100
+									? `${data.event.substring(0, 100)}...`
+									: data.event}
+							</p>
 						</button>
 					))}
 				</div>

@@ -45,24 +45,29 @@ export default function StudentListScreen() {
 
 	const handlePdfGenerator = () => {
 		const input = pdfRef.current;
+
 		html2canvas(input).then((canvas) => {
 			const imgData = canvas.toDataURL("image/png");
 			const pdf = new jsPDF("p", "mm", "a4", true);
+
 			const pdfWidth = pdf.internal.pageSize.getWidth();
 			const pdfHeight = pdf.internal.pageSize.getHeight();
 			const imgWidth = canvas.width;
 			const imgHeight = canvas.height;
-			const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-			const imgX = (pdfWidth - imgWidth * ratio) / 2;
-			const imgY = 30;
-			pdf.addImage(
-				imgData,
-				"PNG",
-				imgX,
-				imgY,
-				imgWidth * ratio,
-				imgHeight * ratio
-			);
+			const ratio = pdfWidth / imgWidth;
+
+			const scaledImgHeight = imgHeight * ratio;
+			const totalPages = Math.ceil(scaledImgHeight / pdfHeight);
+
+			for (let i = 0; i < totalPages; i++) {
+				const yOffset = -(i * pdfHeight);
+				pdf.addImage(imgData, "PNG", 0, yOffset, pdfWidth, scaledImgHeight);
+
+				if (i < totalPages - 1) {
+					pdf.addPage();
+				}
+			}
+
 			pdf.save("invoice.pdf");
 		});
 	};
@@ -183,10 +188,7 @@ export default function StudentListScreen() {
 				className="studentListPdfGenerateButton"
 				onClick={() => handlePdfGenerator()}
 			>
-				<img
-					src={require("../../../assets/icons/pdf.png")}
-					className="studentListPdfGenerateIcon"
-				/>
+				Print Report
 			</button>
 		</div>
 	);

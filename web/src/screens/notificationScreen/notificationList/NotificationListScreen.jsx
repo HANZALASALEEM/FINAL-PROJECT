@@ -114,7 +114,9 @@ function NotificationListScreen() {
 								{data.date.toDate().toLocaleDateString()}
 							</p>
 							<p className="notificationListTabNameNotification">
-								{data.notification}
+								{data.notification.length > 100
+									? `${data.notification.substring(0, 100)}...`
+									: data.notification}
 							</p>
 						</button>
 					))}
