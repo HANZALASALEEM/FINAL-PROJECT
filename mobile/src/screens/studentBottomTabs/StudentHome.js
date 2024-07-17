@@ -28,18 +28,14 @@ import {
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 import StudentAttendence from './extraScreens/StudentAttendence';
-import {getToken} from 'firebase/messaging';
-import {messaging} from '../../firebase/firebase.config';
 const StudentHome = ({route}) => {
   const navigation = useNavigation();
-
   const {params} = route;
   const data = params ? params.data : null;
   const [timeTableData, setTimeTableData] = useState([]);
   const [updatesData, setUpdatesData] = useState([]);
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
-  const [userToken, setUserToken] = useState('');
   useEffect(() => {
     console.log(data.class);
     const fetchData = async () => {
@@ -89,29 +85,7 @@ const StudentHome = ({route}) => {
       }
     };
 
-    const fetchUserToken = async () => {
-      getToken(messaging, {
-        vapidKey:
-          'BNgvjEysQ1LodAJzJINBK7-o4i0v0JdTbb6qoiXd-FuybAEU1aGsMFr69-v-iWwjIFRM1-BBbQIFabPAYIUAhfs',
-      })
-        .then(currentToken => {
-          if (currentToken) {
-            // Send the token to your server and update the UI if necessary
-            setUserToken(currentToken);
-          } else {
-            // Show permission request UI
-            console.log(
-              'No registration token available. Request permission to generate one.',
-            );
-          }
-        })
-        .catch(err => {
-          console.log('An error occurred while retrieving token. ', err);
-        });
-    };
-
     fetchData();
-    fetchUserToken();
   }, []);
 
   return (
