@@ -10,6 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.15.0",
+    "@react-native-firebase/app": "^20.2.0",
+    "@react-native-firebase/messaging": "^20.2.0",
     "@react-native-masked-view/masked-view": "^0.3.1",
     "@react-navigation/bottom-tabs": "^6.5.12",
     "@react-navigation/native": "^6.1.10",

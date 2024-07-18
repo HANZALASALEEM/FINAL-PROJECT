@@ -8,6 +8,7 @@ import {
   ScrollView,
   ToastAndroid,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Navbar from '../../components/Navbar';
@@ -26,7 +27,9 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {useNavigation} from '@react-navigation/native';
 const StudentEducation = ({route}) => {
+  const navigation = useNavigation();
   const {params} = route;
   const data = params ? params.data : null;
   const [className, setClassName] = useState(data ? data.class : '');
@@ -963,22 +966,23 @@ const StudentEducation = ({route}) => {
             <ActivityIndicator size="large" color={COLOR.blue} />
           ) : (
             <>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                placeholder="Teacher's review about your child..."
-                placeholderTextColor="gray"
-                value={studyStatus}
-                // readOnly={true}
-              />
-
-              {/* <ScrollView style={styles.studyStatusScrollView}>
+              <View style={styles.studyStatusContainer}>
                 <Text style={styles.studyStatusText}>{studyStatus}</Text>
-              </ScrollView> */}
+              </View>
             </>
           )}
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={styles.chatgptButton}
+        onPress={() => {
+          navigation.navigate('GeminiChat');
+        }}>
+        <Image
+          source={require('../../assets/icons/robot.png')}
+          style={styles.chatgptIcon}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -1088,8 +1092,25 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   studyStatusText: {
-    width: '95%',
+    width: '90%',
     color: COLOR.black,
     alignSelf: 'center',
+    textAlign: 'justify',
+    marginBottom: 50,
+  },
+  chatgptButton: {
+    height: 50,
+    width: 50,
+    backgroundColor: COLOR.lightBlue,
+    position: 'absolute',
+    bottom: 10,
+    right: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  chatgptIcon: {
+    height: 30,
+    width: 30,
   },
 });

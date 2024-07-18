@@ -28,6 +28,7 @@ import {
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 import StudentAttendence from './extraScreens/StudentAttendence';
+import messaging from '@react-native-firebase/messaging';
 const StudentHome = ({route}) => {
   const navigation = useNavigation();
   const {params} = route;
@@ -36,6 +37,23 @@ const StudentHome = ({route}) => {
   const [updatesData, setUpdatesData] = useState([]);
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
+
+  const checkToken = async () => {
+    console.log('token ka function start');
+    // const fcmToken = await messaging().getToken();
+    await messaging().registerDeviceForRemoteMessages();
+    const token = await messaging().getToken();
+    console.log(token);
+    if (token) {
+      console.log(token);
+      console.log('token ka inner function chal raha hy');
+    } else {
+      console.log('token ka inner function ni chal raha hy');
+    }
+
+    console.log('token ka function end');
+  };
+
   useEffect(() => {
     console.log(data.class);
     const fetchData = async () => {
@@ -86,6 +104,7 @@ const StudentHome = ({route}) => {
     };
 
     fetchData();
+    checkToken();
   }, []);
 
   return (

@@ -27,6 +27,7 @@ import AdministrationLoginScreen from '../screens/loginScreens/AdministrationLog
 import AdministrationBottomNavigator from './AdministrationBottomNavigator';
 import ComplaintListScreen from '../screens/administrationBottomTabs/extraScreens/ComplaintListScreen';
 import ComplaintDetailScreen from '../screens/administrationBottomTabs/extraScreens/ComplaintDetailScreen';
+import GeminiChat from '../screens/studentBottomTabs/extraScreens/GeminiChat';
 
 const Stack = createStackNavigator();
 
@@ -161,6 +162,11 @@ const AppNavigator = () => {
       <Stack.Screen
         name="ComplaintDetailScreen"
         component={ComplaintDetailScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="GeminiChat"
+        component={GeminiChat}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

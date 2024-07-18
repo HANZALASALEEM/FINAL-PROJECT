@@ -369,16 +369,9 @@ const StudentHifz = ({route}) => {
             <ActivityIndicator size="large" color={COLOR.blue} />
           ) : (
             <>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                placeholder="Teacher's review about your child..."
-                placeholderTextColor="gray"
-                value={studyStatus}
-                // readOnly={true}
-                numberOfLines={3}
-                // editable={false}
-              />
+              <View style={styles.studyStatusContainer}>
+                <Text style={styles.studyStatusText}>{studyStatus}</Text>
+              </View>
             </>
           )}
         </View>
@@ -481,5 +474,12 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
+  },
+  studyStatusText: {
+    width: '90%',
+    color: COLOR.black,
+    alignSelf: 'center',
+    textAlign: 'justify',
+    marginBottom: 10,
   },
 });
