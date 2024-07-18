@@ -25,7 +25,7 @@ const OnBoardingScreen1 = () => {
         <View style={styles.skipButtonContainer}>
           <TouchableOpacity
             style={styles.skipButton}
-            onPress={() => navigation.navigate('OnBoardingScreen3')}>
+            onPress={() => navigation.navigate('WhoAreYouScreen')}>
             <Text style={styles.skipButtonTitle}>SKIP</Text>
           </TouchableOpacity>
         </View>
