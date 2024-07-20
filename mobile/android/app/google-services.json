@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46075682266",
+    "project_id": "suffah-model-school-fed72",
+    "storage_bucket": "suffah-model-school-fed72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46075682266:android:976841a3db5cce8f38b4e3",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmGZKXKTcyD6FGkGPo_FkfzHyFbqlYLh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -83,7 +83,7 @@
 	border-width: 0px;
 }
 .studentListAddStudentButton {
-	position: absolute;
+	position: fixed;
 	width: 70px;
 	height: 70px;
 	background-color: #3a62d7;

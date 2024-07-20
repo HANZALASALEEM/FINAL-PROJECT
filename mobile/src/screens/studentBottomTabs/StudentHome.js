@@ -20,6 +20,9 @@ import {
   orderBy,
   limit,
   Alert,
+  doc,
+  setDoc,
+  getDoc,
 } from 'firebase/firestore';
 import {db} from '../../firebase/firebase.config';
 import {
@@ -29,6 +32,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import StudentAttendence from './extraScreens/StudentAttendence';
 import messaging from '@react-native-firebase/messaging';
+
 const StudentHome = ({route}) => {
   const navigation = useNavigation();
   const {params} = route;
@@ -38,20 +42,45 @@ const StudentHome = ({route}) => {
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading
 
-  const checkToken = async () => {
-    console.log('token ka function start');
-    // const fcmToken = await messaging().getToken();
-    await messaging().registerDeviceForRemoteMessages();
-    const token = await messaging().getToken();
-    console.log(token);
-    if (token) {
-      console.log(token);
-      console.log('token ka inner function chal raha hy');
-    } else {
-      console.log('token ka inner function ni chal raha hy');
+  const requestPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+      getFcmToken();
     }
+  };
 
-    console.log('token ka function end');
+  const getFcmToken = async () => {
+    try {
+      const fcmToken = await messaging().getToken();
+      if (fcmToken) {
+        console.log('New FCM:', fcmToken);
+        await saveFcmToken(fcmToken);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const saveFcmToken = async token => {
+    try {
+      const studentCNIC = data.studentCNIC; // Assuming data is available in the scope
+      const docRef = doc(db, 'FcmToken', studentCNIC);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log('FCM token already exists:', docSnap.data());
+        return;
+      }
+
+      await setDoc(docRef, {token});
+      console.log('FCM token saved successfully');
+    } catch (error) {
+      console.error('Error saving FCM token:', error);
+    }
   };
 
   useEffect(() => {
@@ -104,7 +133,7 @@ const StudentHome = ({route}) => {
     };
 
     fetchData();
-    checkToken();
+    requestPermission();
   }, []);
 
   return (
