@@ -30,6 +30,25 @@ const NewTimeTableScreen = () => {
 	};
 
 	const handleSaveButton = async () => {
+		if (!className || className === "Choose Class") {
+			message.error("Please select a class");
+			return;
+		} else {
+			// Proceed with form submission
+			console.log("Form submitted with class:", className);
+		}
+
+		for (let key in newTimeTableEntry) {
+			if (!newTimeTableEntry[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
+
 		try {
 			// Add the new time table entry to the state
 			setTimeTableEntries((prevEntries) => [...prevEntries, newTimeTableEntry]);

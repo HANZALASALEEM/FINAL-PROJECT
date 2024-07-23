@@ -62,6 +62,16 @@ function NewStudentScreen() {
 	// };
 
 	const handleSaveButton = async () => {
+		for (let key in newStudentData) {
+			if (!newStudentData[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
 		try {
 			const studentCollectionRef = collection(db, "Student");
 

@@ -1,11 +1,13 @@
 import "./App.css";
 import LoginScreen from "./screens/loginScreen/LoginScreen";
 import { Route, Routes } from "react-router-dom";
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import { db } from "./firebase/firebase.config";
 import { getDocs, collection, query } from "firebase/firestore";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "firebase/messaging";
+import { messaging } from "./firebase/firebase.config";
 import SideBar from "./component/sideBar/SideBar";
 import StudentListScreen from "./screens/studentScreen/studentList/StudentListScreen";
 import StudentDetail from "./screens/studentScreen/studentDetail/StudentDetailScreen";
@@ -32,6 +34,24 @@ import TimeTableListScreen from "./screens/timeTableScreen/timeTableList/TimeTab
 import NewTimeTableScreen from "./screens/timeTableScreen/newTimeTable/NewTimeTableScreen";
 import TimeTableDetailScreen from "./screens/timeTableScreen/timeTableDetail/TimeTableDetailScreen";
 function App() {
+	const requestPermission = async () => {
+		const permission = await Notification.requestPermission();
+		if (permission === "granted") {
+			console.log("Permission Granted");
+			const token = await getToken(messaging, {
+				vapidKey:
+					"BNgvjEysQ1LodAJzJINBK7-o4i0v0JdTbb6qoiXd-FuybAEU1aGsMFr69-v-iWwjIFRM1-BBbQIFabPAYIUAhfs",
+			});
+			console.log(token);
+		} else if (permission === "denied") {
+			console.log("Permission Granted");
+		}
+	};
+
+	useEffect(() => {
+		requestPermission();
+	}, []);
+
 	return (
 		<>
 			{window.location.pathname == "/" ? <div /> : <SideBar />}

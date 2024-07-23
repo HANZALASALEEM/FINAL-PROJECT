@@ -424,19 +424,6 @@ function StudentDetailScreen() {
 						/>
 					</div>
 				</div>
-				{/* Hifz Report Container */}
-				<div className="studentDetailhifzReport">
-					<h3 className="studentDetailHeading">HIFZ REPORT</h3>
-					<div className="studentDetailHifzReportContainer">
-						{hifzReportData.map((report, index) => (
-							<HifzTextMarksInput
-								key={index}
-								date={report.date}
-								marks={report.marks}
-							/>
-						))}
-					</div>
-				</div>
 			</div>
 			{/* Delete Button */}
 			<button

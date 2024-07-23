@@ -15,7 +15,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-
+import {useNavigation} from '@react-navigation/native';
 const StudentAttendence = ({route}) => {
   const navigation = useNavigation();
   const {data} = route.params;
@@ -119,9 +119,9 @@ const StudentAttendence = ({route}) => {
                 {item.date}
               </Text>
 
-              {item.present === '1' ? (
+              {item.present == '1' ? (
                 <Text style={[styles.text, {color: COLOR.green}]}>PRESENT</Text>
-              ) : item.present === '-1' ? (
+              ) : item.present == '-1' ? (
                 <Text style={[styles.text, {color: COLOR.red}]}>ABSENT</Text>
               ) : (
                 <Text style={[styles.text, {color: COLOR.black}]}>UNKNOWN</Text>

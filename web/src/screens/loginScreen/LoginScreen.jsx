@@ -19,27 +19,35 @@ export default function LoginScreen() {
 		try {
 			const querySnapshot = await getDocs(adminQuery);
 
-			// Step 2: Iterate through the documents
+			// Step 2: Initialize a flag to check if a match is found
+			let matchFound = false;
+
+			// Step 3: Iterate through the documents
 			querySnapshot.forEach((doc) => {
 				const adminData = doc.data();
 
-				// Step 3: Check if any document has the provided email and password
+				// Step 4: Check if any document has the provided email and password
 				if (adminData.email === email && adminData.password === password) {
 					// If a match is found, allow the user to proceed to the next screen
-
-					console.log("match found"); // Function to handle user authentication
-					messageApi.success("Wait, Login Successfully!");
+					console.log("Match found");
+					messageApi.success("Login Successful!");
 					navigate("StudentList");
 					window.location.reload();
-				} else {
-					// If no match is found
-					console.log("Invalid email or password");
+					matchFound = true;
+					return;
 				}
 			});
+
+			// Step 5: If no match is found, display an alert
+			if (!matchFound) {
+				messageApi.error("Invalid email or password");
+			}
 		} catch (error) {
 			console.error("Error getting documents: ", error);
+			messageApi.error("An error occurred while trying to log in");
 		}
 	};
+
 	return (
 		<>
 			<div className="loginScreenBody">

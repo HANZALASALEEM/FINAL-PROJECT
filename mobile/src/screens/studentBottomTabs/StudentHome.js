@@ -30,7 +30,6 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
-import StudentAttendence from './extraScreens/StudentAttendence';
 import messaging from '@react-native-firebase/messaging';
 
 const StudentHome = ({route}) => {
@@ -207,7 +206,7 @@ const StudentHome = ({route}) => {
               justifyContent: 'space-between',
             }}>
             <Text style={styles.heading}>UPDATES</Text>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.navigate('StudentNotification')}>
               <Text
                 style={[
@@ -216,7 +215,7 @@ const StudentHome = ({route}) => {
                 ]}>
                 See all
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {loading ? (
             <ActivityIndicator size="large" color={COLOR.blue} />
@@ -255,7 +254,7 @@ const StudentHome = ({route}) => {
               justifyContent: 'space-between',
             }}>
             <Text style={styles.heading}>EVENTS</Text>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.navigate('StudentEvent')}>
               <Text
                 style={[
@@ -264,7 +263,7 @@ const StudentHome = ({route}) => {
                 ]}>
                 See all
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {loading ? (
             <ActivityIndicator size="large" color={COLOR.blue} />

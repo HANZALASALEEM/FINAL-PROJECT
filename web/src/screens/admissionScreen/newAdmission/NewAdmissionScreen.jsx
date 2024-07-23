@@ -55,6 +55,28 @@ function NewAdmissionScreen() {
 	};
 
 	const handleSaveButton = async () => {
+		for (let key in newStudentData) {
+			if (!newStudentData[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
+
+		for (let key in newAdmissionData) {
+			if (!newAdmissionData[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
+
 		try {
 			const studentCollectionRef = collection(db, "Student");
 			const admissionCollectionRef = collection(db, "Admission");

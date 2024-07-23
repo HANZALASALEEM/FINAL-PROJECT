@@ -63,6 +63,17 @@ function NewEventScreen() {
 		}
 	};
 	const handleSaveButton = async () => {
+		for (let key in newEventData) {
+			if (!newEventData[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
+
 		try {
 			const eventCollectionRef = collection(db, "Event");
 

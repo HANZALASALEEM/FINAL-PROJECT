@@ -29,6 +29,16 @@ function NewExpenseScreen() {
 		setDate(formattedDate);
 	};
 	const handleSaveButton = async () => {
+		for (let key in newExpenseData) {
+			if (!newExpenseData[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
 		try {
 			const expenseCollectionRef = collection(db, "Expense");
 

@@ -36,6 +36,16 @@ function NewEmployeeScreen() {
 	};
 
 	const handleSaveButton = async () => {
+		for (let key in newEmployeeData) {
+			if (!newEmployeeData[key]) {
+				messageApi.open({
+					type: "error",
+					content: `All fields are required. Missing: ${key}`,
+					duration: 10,
+				});
+				return;
+			}
+		}
 		try {
 			const employeeCollectionRef = collection(db, "Employee");
 

@@ -10,6 +10,7 @@ function TextInput({ title, placeholder, value, changeText, onEdit }) {
 					placeholder={placeholder}
 					value={value}
 					onChange={(text) => changeText(text.target.value)}
+					required
 				/>
 				<button className="inputButton" onClick={() => onEdit()}>
 					<img
